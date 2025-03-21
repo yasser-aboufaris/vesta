@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->integer('role_id');
+            $table->foreign('role_id')->references('id')->on('roles');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    $fillables = [];
+    protected $fillable = [
+        'content',
+        'owner_id',
+    ];
+    
     public function post(){
         return $this->belongsTo(Post::class);
     }

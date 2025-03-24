@@ -1,7 +1,7 @@
-<?php 
+<?php
 namespace App\Repositories\Interfaces; 
 
-interface CommentReposotoryInterface
+interface PostReposotoryInterface
 {
     public function all();
     public function find();

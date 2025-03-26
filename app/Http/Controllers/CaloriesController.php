@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 
 class CaloriesController extends Controller
 {
-    function calculateCalories($weight, $height, $age, $sex, $activityLevel = 1.2) {
-        // Calculate BMR using Mifflin-St Jeor Equation
+    public function calculateCalories($weight, $height, $age, $sex, $activityLevel = 1.2) {
         if (strtolower($sex) === "male") {
             $bmr = 10 * $weight + 6.25 * $height - 5 * $age + 5;
         } else {
@@ -19,7 +18,7 @@ class CaloriesController extends Controller
         return round($caloriesNeeded);
     }
 
-    function estimateWeightChange($caloriesEaten, $weight, $height, $age, $sex, $activityLevel, $days) {
+    public function estimateWeightChange($caloriesEaten, $weight, $height, $age, $sex, $activityLevel, $days) {
         $caloriesBurned = calculateCalories($weight, $height, $age, $sex, $activityLevel);
         
         $calorieBalance = $caloriesEaten - $caloriesBurned;
@@ -29,7 +28,7 @@ class CaloriesController extends Controller
         return round($weightChange, 2);
     }
 
-    function calculateDailyCaloriesForGoal($currentWeight, $goalWeight, $height, $age, $sex, $activityLevel, $days) {
+    public function calculateDailyCaloriesForGoal($currentWeight, $goalWeight, $height, $age, $sex, $activityLevel, $days) {
         $caloriesBurned = calculateCalories($currentWeight, $height, $age, $sex, $activityLevel);
     
         $weightChange = $goalWeight - $currentWeight;

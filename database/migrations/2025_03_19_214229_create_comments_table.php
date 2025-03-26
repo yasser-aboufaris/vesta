@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('content');
             $table->integer('owner_id');
-            $table->foreign('owner_id')->references('id')->on('posts');
+            $table->foreign('owner_id')->references('id')->on('users');
+            $table->integer('post_id');
+            $table->foreign('post_id')->references('id')->on('posts');
             $table->timestamps();
         });
     }

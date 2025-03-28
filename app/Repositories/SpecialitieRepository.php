@@ -11,7 +11,7 @@ class SpecialityController extends Controller
     protected $testRepository;
     protected $QuestionRepository;
 
-    public function __construct(SpecialitieRepositoryInterface $specialityRepository)
+    public function __construct(SpecialitieRepositoryInterface $specialityRepository )
     {
         $this->specialityRepository = $specialityRepository;
     }

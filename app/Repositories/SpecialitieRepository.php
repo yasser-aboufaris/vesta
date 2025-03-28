@@ -1,29 +1,43 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Http\Controllers;
 
 use App\Interfaces\SpecialitieRepositoryInterface;
-use App\Models\Speciality;
+use Illuminate\Http\Request;
 
-class SpecialitieRepository implements SpecialitieRepositoryInterface
+class SpecialityController extends Controller
 {
-    public function all()
+    protected $specialityRepository;
+    protected $testRepository;
+    protected $QuestionRepository;
+
+    public function __construct(SpecialitieRepositoryInterface $specialityRepository)
     {
-        return Speciality::all();
+        $this->specialityRepository = $specialityRepository;
     }
 
-    public function find($id)
+    public function index()
     {
-        return Speciality::findOrFail($id);
+        return response()->json($this->specialityRepository->all());
     }
 
-    public function create(array $data)
+    public function show($id)
     {
-        return Speciality::create($data);
+        return response()->json($this->specialityRepository->find($id));
     }
 
-    public function delete($id)
+    public function store(Request $request)
     {
-        return Speciality::destroy($id);
+        $data = $request->validate([
+            'name' => 'required|string|unique:specialities,name',
+        ]);
+
+        return response()->json($this->specialityRepository->create($data), 201);
+    }
+
+    public function destroy($id)
+    {
+        $this->specialityRepository->delete($id);
+        return response()->json(['message' => 'Speciality deleted successfully']);
     }
 }

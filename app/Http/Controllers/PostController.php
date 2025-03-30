@@ -33,6 +33,7 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'owner_id' => 'required|exists:users,id',
+            'tags' => 'array|exists:tags,id'
         ]);
 
         $post = Post::create([

@@ -53,27 +53,28 @@ class PostController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-    {
-        $post = Post::find($id);
+{
+    $post = Post::find($id);
 
-        if (!$post) {
-            return response()->json(['message' => 'Post not found'], 404);
-        }
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'content' => 'required|string',
+        'owner_id' => 'required|exists:users,id',
+        'tags' => 'array|exists:tags,id' 
+    ]);
 
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'owner_id' => 'required|exists:users,id',
-        ]);
+    // Update the post data
+    $post->update([
+        'title' => $request->title,
+        'content' => $request->content,
+        'owner_id' => $request->owner_id,
+    ]);
 
-        $post->update([
-            'title' => $request->title,
-            'content' => $request->content,
-            'owner_id' => $request->owner_id,
-        ]);
+    $post->tags()->sync($request->tags); 
 
-        return response()->json($post);
-    }
+    return response()->json($post->load('tags'));
+}
+
 
     /**
      * Remove the specified resource from storage.

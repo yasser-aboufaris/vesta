@@ -40,6 +40,8 @@ class PostController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'owner_id' => $request->owner_id,
+            'tags' => $request->tags,
+
         ]);
 
         return response()->json($post, 201);

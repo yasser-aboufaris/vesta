@@ -13,9 +13,9 @@ class Speciality extends Model
         return $this->belongsToOne(Test::class);
     }
 
-    public function Question()
-    {
-        return $this->hasMany(Question::class);
-    }
+    // public function Question()
+    // {
+    //     return $this->hasMany(Question::class);
+    // }
 
 }

@@ -22,6 +22,12 @@ class PostController extends Controller
         return response()->json($posts);
     }
 
+    public function getByOwner($ownerId)
+    {
+        $posts = $this->postRepository->findByOwner($ownerId)->load('tags');
+        return response()->json($posts);
+    }
+
     public function show($id)
     {
         try {
@@ -78,5 +84,9 @@ class PostController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => 'Post not found'], 404);
         }
+    }
+    
+    public function findByOwner($id){
+        
     }
 }

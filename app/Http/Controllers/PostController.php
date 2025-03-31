@@ -52,19 +52,14 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, $id)
     {
         try {
-            $request->validate([
+            $data = $request->validate([
                 'title' => ['required', 'string', 'max:255'],
                 'content' => ['required', 'string'],
                 'owner_id' => ['required', 'exists:users,id'],
                 'tags' => ['array'],
                 'tags.*' => ['exists:tags,id'],
             ]);
-
-            $data = [
-                'title' => $request->input('title'),
-                'content' => $request->input('content'),
-                'owner_id' => $request->input('owner_id'),
-            ];
+            
 
             $post = $this->postRepository->update($id, $data);
             $post->tags()->sync($request->input('tags', []));

@@ -13,7 +13,7 @@ class PostRepository implements PostRepositoryInterface
     {
         return Post::all();
     }
-
+    
     public function find($id)
     {
         $post = Post::find($id);
@@ -42,6 +42,7 @@ class PostRepository implements PostRepositoryInterface
         
         return $post->fresh();
     }
+
 
     public function delete($id)
     {

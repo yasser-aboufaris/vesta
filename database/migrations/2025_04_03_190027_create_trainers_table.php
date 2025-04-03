@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('trainers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->integer('id_speciality');
+            $table->integer('user_id')->unsigned();
+            $table->integer('id_speciality')->unsigned();
+        
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_speciality')->references('id')->on('specialities')->onDelete('cascade');
+        
             $table->timestamps();
         });
+        
     }
 
     /**

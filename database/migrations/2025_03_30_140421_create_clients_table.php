@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->integer('age');
-            $table->ineteger('weight');
+            $table->integer('weight');
             $table->integer('height');
             $table->string('sex');
             $table->string('race');

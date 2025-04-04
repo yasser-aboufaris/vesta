@@ -2,5 +2,5 @@
 namespace App\Repositories\Interfaces;
 
 interface ClientRepositoryInterface {
-    public function createClient(array $user, array $data);
+    public function createClient(object $user, array $data);
 }

@@ -38,15 +38,17 @@ class PostController extends Controller
         }
     }
 
-    public function store(StorePostRequest $request)
+    public function store(Request $request)
     {
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
-            'owner_id' => ['required', 'exists:users,id'],
             'tags' => ['array'],
             'tags.*' => ['exists:tags,id'],
         ]);
+        
+        $data['owner_id'] = 8;
+        
         
 
         $post = $this->postRepository->create($data);

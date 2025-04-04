@@ -41,4 +41,26 @@ class ClientController extends Controller {
             'client' => $client,
         ]);
     }
+
+
+    public function login(Request $request) {
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        $user = $this->userRepository->login($validated);
+
+        if (!$user) {
+            return response()->json(['message' => 'Invalid credentials'], 401);
+        }
+
+        $token = $user->createToken('authToken')->plainTextToken;
+        $client = $this->clientRepository->getClientByUserId($user->id);
+        return response()->json([
+            'user' => $user,
+            'client' => $client,
+            'token' => $token,
+        ]);
+    }
 }

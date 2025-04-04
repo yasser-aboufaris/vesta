@@ -9,4 +9,12 @@ class UserRepository implements UserRepositoryInterface {
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         return User::create($data);
     }
+
+    public function login(array $credentials) {
+        $user = User::where('email', $credentials['email'])->first();
+        if (!$user || !password_verify($credentials['password'], $user->password)) {
+            return null;
+        }
+        return $user;
+    }
 }

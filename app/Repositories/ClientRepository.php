@@ -15,5 +15,11 @@ class ClientRepository implements ClientRepositoryInterface {
             'race'    => $data['race'],
         ]);
     }
+
+    public function getClientByUserId(int $userId)
+{
+    return Client::where('user_id', $userId)->get();
+}
+
     
 }

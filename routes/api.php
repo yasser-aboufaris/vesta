@@ -11,6 +11,7 @@ use App\Http\Controllers\PostController;
 Route::post('/user/register', [ClientController::class, 'register']);
 Route::get('/posts', [PostController::class, 'index']);
 Route::post('/posts', [PostController::class, 'store']);
+Route::get('/posts/owner/{ownerId}', [PostController::class, 'getByOwner']);
+Route::get('/posts/{id}', [PostController::class, 'show']);
 Route::post('/user/login', [ClientController::class, 'login']);
-
 Route::put('/posts/id', [PostController::class, 'update']);

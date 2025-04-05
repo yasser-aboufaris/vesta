@@ -19,6 +19,8 @@ class CommentRepository
 
     public function create(array $data, $idPost)
     {
+
+        $data['owner_id'] = 8; 
         $data['post_id'] = $idPost;
         return Comment::create($data);
     }

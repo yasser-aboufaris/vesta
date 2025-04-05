@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\CommentRepository;
+use App\Models\Comment;
 
 class CommentController extends Controller
 {
@@ -20,11 +21,26 @@ class CommentController extends Controller
             'content' => 'required|string|max:255',
         ]);
 
-        // Use the repository to create the new comment
-        $comment = $this->commentRepository->create($validated, $id);
+        // Create the new comment
+        $comment = Comment::create([
+            'post_id' => 4,
+            'user_id' => 9,
+            'content' => $validated['content'],
+        ]);
 
         return response()->json($comment, 201);
     }
 
-    
+    public function destroy($commentId)
+    {
+        $comment = Comment::find($commentId);
+
+        if (!$comment) {
+            return response()->json(['message' => 'Comment not found'], 404);
+        }
+
+        $comment->delete();
+
+        return response()->json(['message' => 'Comment deleted successfully'], 200);
+    }
 }

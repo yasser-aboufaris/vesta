@@ -18,3 +18,4 @@ Route::post('/user/login', [ClientController::class, 'login']);
 Route::put('/posts/id', [PostController::class, 'update']);
 Route::delete('/posts/{id}', [PostController::class, 'delete']);
 Route::post('/posts/{id}/comments', [CommentController::class, 'store']);
+Route::delete('/comments/{id}', [CommentController::class, 'destroy']);

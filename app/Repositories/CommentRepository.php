@@ -1,28 +1,30 @@
 <?php
+
 namespace App\Repositories;
 
-use App\Repositories\Interfaces\PostRepositoryInterface;
-use App\Models\Post;
+use App\Models\Comment;
+use App\Repositories\Interfaces\CommentRepositoryInterface;
 
-class PostRepository implements PostRepositoryInterface
+class CommentRepository implements CommentRepositoryInterface
 {
-
-    public function create(array $data)
+    public function GetByPost($postId)
     {
-        return Post::create($data);
+        return Comment::where('post_id', $postId)->get();
     }
 
+    public function GetByUser($userId)
+    {
+        return Comment::where('owner_id', $userId)->get();
+    }
 
+    public function create(array $data, $idPost)
+    {
+        $data['post_id'] = $idPost;
+        return Comment::create($data);
+    }
 
     public function delete($id)
     {
-        Post::destroy($id);
+        return Comment::findOrFail($id)->delete();
     }
-    public function getByPost($postId)
-    {
-        return Post::findOrFail($postId)->comments()->get();
-    }
-    
-    
-    
 }

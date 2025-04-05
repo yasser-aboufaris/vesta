@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Comment;
 use App\Repositories\Interfaces\CommentRepositoryInterface;
 
-class CommentRepository implements CommentRepositoryInterface
+class CommentRepository 
 {
     public function GetByPost($postId)
     {

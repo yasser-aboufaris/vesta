@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\CommentRepository;
-use App\Models\Comment;
 
 class CommentController extends Controller
 {
@@ -15,31 +14,25 @@ class CommentController extends Controller
         $this->commentRepository = $commentRepository;
     }
 
-    public function store(Request $request, $postId)
+    public function store(Request $request, $id)
     {
         $validated = $request->validate([
             'content' => 'required|string|max:255',
         ]);
 
-        // Create the new comment
-        $comment = Comment::create([
-            'post_id' => $postId,
-            'user_id' => 9,
-            'content' => $validated['content'],
-        ]);
+        // Use the repository to create the new comment
+        $comment = $this->commentRepository->create($validated, $id);
 
         return response()->json($comment, 201);
     }
 
     public function destroy($commentId)
     {
-        $comment = Comment::find($commentId);
+        $comment = $this->commentRepository->delete($commentId);
 
         if (!$comment) {
             return response()->json(['message' => 'Comment not found'], 404);
         }
-
-        $comment->delete();
 
         return response()->json(['message' => 'Comment deleted successfully'], 200);
     }

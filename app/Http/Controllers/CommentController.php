@@ -26,14 +26,5 @@ class CommentController extends Controller
         return response()->json($comment, 201);
     }
 
-    public function destroy($commentId)
-    {
-        $comment = $this->commentRepository->delete($commentId);
-
-        if (!$comment) {
-            return response()->json(['message' => 'Comment not found'], 404);
-        }
-
-        return response()->json(['message' => 'Comment deleted successfully'], 200);
-    }
+    
 }

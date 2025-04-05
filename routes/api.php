@@ -15,3 +15,4 @@ Route::get('/posts/owner/{ownerId}', [PostController::class, 'getByOwner']);
 Route::get('/posts/{id}', [PostController::class, 'show']);
 Route::post('/user/login', [ClientController::class, 'login']);
 Route::put('/posts/id', [PostController::class, 'update']);
+Route::delete('/posts/{id}', [PostController::class, 'delete']);

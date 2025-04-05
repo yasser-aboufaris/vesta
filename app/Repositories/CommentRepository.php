@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Comment;
 use App\Repositories\Interfaces\CommentRepositoryInterface;
 
-class CommentRepository implements CommentRepositoryInterface
+class CommentRepository 
 {
     public function GetByPost($postId)
     {
@@ -19,6 +19,8 @@ class CommentRepository implements CommentRepositoryInterface
 
     public function create(array $data, $idPost)
     {
+
+        $data['owner_id'] = 8; 
         $data['post_id'] = $idPost;
         return Comment::create($data);
     }

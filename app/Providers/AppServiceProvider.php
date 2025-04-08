@@ -23,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PostRepositoryInterface::class, PostRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(ClientRepositoryInterface::class, yasserRepository::class);
+        $this->app->bind(TrainerRepositoryInterface::class, TrainerRepository::class);
+
                 
     }
     

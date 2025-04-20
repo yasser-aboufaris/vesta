@@ -82,7 +82,7 @@ class PostController extends Controller
     {
         try {
             return $this->postRepository->delete($id);
-            // return response()->json(['message' => 'Post deleted successfully']);
+            return response()->json(['message' => 'Post deleted successfully']);
         } catch (\Exception $e) {
             return response()->json(['message' => 'hrll nsh'], 404);
         }

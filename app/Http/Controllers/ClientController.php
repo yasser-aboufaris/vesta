@@ -16,6 +16,7 @@ class ClientController extends Controller {
     }
 
     public function register(Request $request) {
+        // dd($request);
         $validated = $request->validate([
             'name'   => 'required|string|max:255',
             'email'   => 'required|email',
@@ -26,7 +27,8 @@ class ClientController extends Controller {
             'sex'     => 'required|string',
             'race'    => 'required|string',
         ]);
-        dd($validated);
+        // dd('wewewe');
+        // dd($validated);
         $user = $this->userRepository->signUp([
             'name' => $validated['name'],
             'email' => $validated['email'],

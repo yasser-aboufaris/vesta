@@ -81,10 +81,10 @@ class PostController extends Controller
     public function delete($id)
     {
         try {
-            $this->postRepository->delete($id);
-            return response()->json(['message' => 'Post deleted successfully']);
+            return $this->postRepository->delete($id);
+            // return response()->json(['message' => 'Post deleted successfully']);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Post not found'], 404);
+            return response()->json(['message' => 'hrll nsh'], 404);
         }
     }
     

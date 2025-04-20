@@ -26,12 +26,12 @@ class ClientController extends Controller {
             'sex'     => 'required|string',
             'race'    => 'required|string',
         ]);
-
+        dd($validated);
         $user = $this->userRepository->signUp([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => $validated['password'],
-            'role_id' => 3,
+            'role_id' => 1,
         ]);
 
         $client = $this->clientRepository->createClient($user, $validated);

@@ -9,7 +9,7 @@ use App\Http\Controllers\CommentController;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-Route::post('/user/register', [ClientController::class, 'register']);
+Route::post('/user/client/register', [ClientController::class, 'register']);
 Route::get('/posts', [PostController::class, 'index']);
 Route::post('/posts', [PostController::class, 'store']);
 Route::get('/posts/owner/{ownerId}', [PostController::class, 'getByOwner']);

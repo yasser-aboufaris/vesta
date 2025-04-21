@@ -47,11 +47,9 @@ class PostRepository implements PostRepositoryInterface
 
     public function delete($id)
     {
-        $post = Post::destroy($id);
-        dd($post);
-        // return $post;
-// $post = Post::destroy($id);
-        // return $post;
-        // dd($id);
+        $post = $this->find($id);
+        dd($post->delete());
+        
+        return $post->delete();
     }
 }

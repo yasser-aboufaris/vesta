@@ -7,7 +7,7 @@ use App\Repositories\Interfaces\ClientRepositoryInterface;
 class ClientRepository implements ClientRepositoryInterface {
     public function createClient(object $user, array $data) {
         return Client::create([
-            'user_id' => $user->id,  // ✅ Use object property access
+            'user_id' => $user->id,
             'age'     => $data['age'],
             'weight'  => $data['weight'],
             'height'  => $data['height'],
@@ -15,6 +15,7 @@ class ClientRepository implements ClientRepositoryInterface {
             'race'    => $data['race'],
         ]);
     }
+    
 
     public function getClientByUserId(int $userId)
 {

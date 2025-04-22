@@ -8,3 +8,6 @@ Route::get('/', function () {
 Route::get('/docs', function () {
     return view('scribe.index');  
 });
+Route::get('/yass', function () {
+    return 'yaa';  
+});

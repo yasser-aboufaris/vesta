@@ -2,65 +2,64 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\UserRepository;
-use App\Repositories\ClientRepository;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller {
-    protected $userRepository;
-    protected $clientRepository;
-
-    public function __construct() {
-        $this->userRepository = new UserRepository();
-        $this->clientRepository = new ClientRepository();
+class ClientController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
     }
 
-    public function register(Request $request) {
-        $validated = $request->validate([
-            'name'   => 'required|string|max:255',
-            'email'   => 'required|email',
-            'password'=> 'required|min:6',
-            'age'     => 'required|integer',
-            'weight'  => 'required|integer',
-            'height'  => 'required|integer',
-            'sex'     => 'required|string',
-            'race'    => 'required|string',
-        ]);
-        // dd($validated);
-        $user = $this->userRepository->signUp([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => $validated['password'],
-            'role_id' => 1,
-        ]);
-
-        $client = $this->clientRepository->createClient($user, $validated);
-
-        return response()->json([
-            'user' => $user,
-            'client' => $client,
-        ]);
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
 
-    public function login(Request $request) {
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
+    /**
+     * Display the specified resource.
+     */
+    public function show(Client $client)
+    {
+        //
+    }
 
-        $user = $this->userRepository->login($validated);
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Client $client)
+    {
+        //
+    }
 
-        if (!$user) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
-        }
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Client $client)
+    {
+        //
+    }
 
-        $token = $user->createToken('authToken')->plainTextToken;
-        $client = $this->clientRepository->getClientByUserId($user->id);
-        return response()->json([
-            'user' => $user,
-            'client' => $client,
-            'token' => $token,
-        ]);
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Client $client)
+    {
+        //
     }
 }

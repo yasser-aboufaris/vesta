@@ -1,8 +1,8 @@
-<?php 
+<?php
 namespace App\Repositories\Interfaces;
 
-interface UserRepositoryInterface
-{
+interface UserRepositoryInterface {
     public function signUp(array $data);
-    // public function login(array $data);
+    public function login(array $credentials);
 }
+

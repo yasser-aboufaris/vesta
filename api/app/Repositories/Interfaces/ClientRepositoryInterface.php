@@ -2,5 +2,6 @@
 namespace App\Repositories\Interfaces;
 
 interface ClientRepositoryInterface {
-    public function createClient(object $user, array $data);
+    public function insertClientData(object $user, array $data);
+    public function getClientByUserId(int $userId);
 }

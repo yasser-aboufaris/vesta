@@ -1,18 +1,4 @@
 <?php return array (
-  'knuckleswtf/scribe' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Knuckles\\Scribe\\ScribeServiceProvider',
-    ),
-  ),
-  'laravel/pail' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Pail\\PailServiceProvider',
-    ),
-  ),
   'laravel/sail' => 
   array (
     'providers' => 
@@ -55,11 +41,15 @@
       0 => 'Termwind\\Laravel\\TermwindServiceProvider',
     ),
   ),
-  'pestphp/pest-plugin-laravel' => 
+  'spatie/laravel-ignition' => 
   array (
+    'aliases' => 
+    array (
+      'Flare' => 'Spatie\\LaravelIgnition\\Facades\\Flare',
+    ),
     'providers' => 
     array (
-      0 => 'Pest\\Laravel\\PestServiceProvider',
+      0 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
     ),
   ),
 );

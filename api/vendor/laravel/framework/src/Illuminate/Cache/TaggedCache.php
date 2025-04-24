@@ -22,6 +22,7 @@ class TaggedCache extends Repository
      *
      * @param  \Illuminate\Contracts\Cache\Store  $store
      * @param  \Illuminate\Cache\TagSet  $tags
+     * @return void
      */
     public function __construct(Store $store, TagSet $tags)
     {
@@ -109,11 +110,7 @@ class TaggedCache extends Repository
      */
     protected function event($event)
     {
-        if (method_exists($event, 'setTags')) {
-            $event->setTags($this->tags->getNames());
-        }
-
-        parent::event($event);
+        parent::event($event->setTags($this->tags->getNames()));
     }
 
     /**

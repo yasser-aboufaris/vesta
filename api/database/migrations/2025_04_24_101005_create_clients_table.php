@@ -11,9 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
+
         Schema::create('clients', function (Blueprint $table) {
-            
-            $table->string('sex');
+            $table->integer('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->integer('age');
+            $table->float('weight');
+            $table->float('height');
+            $table->timestamps();
         });
     }
 

@@ -8,7 +8,7 @@ abstract class UserRepository implements UserRepositoryInterface {
 
     abstract public function signUp(array $data);
 
-    public function login(array $credentials) {
+    public static function login(array $credentials) {
         $user = User::where('email', $credentials['email'])->first();
 
         if (!$user || !$this->checkPassword($credentials['password'], $user->password)) {

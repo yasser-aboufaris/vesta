@@ -19,7 +19,7 @@ function App() {
   <Feed />
   <Footer /> */}
   <ProgramCard/>
-  
+  <Footer />
 </div>
 
 

@@ -7,21 +7,32 @@ use App\Repositories\Interfaces\ClientRepositoryInterface;
 
 class ClientRepository extends UserRepository implements ClientRepositoryInterface {
 
-    public function signUp(array $data) {
-        $data['role'] = 'client'; // or set a role_id if you're using a foreign key
+    public function signUp(array $data)
+    {
+        $data['role_id'] = 3; 
         $data['password'] = $this->hashPassword($data['password']);
-        return User::create($data);
-    }
-
-    public function insertClientData(object $user, array $data) {
-        return Client::create([
-            'user_id' => $user->id,
-            'age'     => $data['age'],
-            'weight'  => $data['weight'],
-            'height'  => $data['height'],
-            'sex'     => $data['sex'],
-            'race'    => $data['race'],
+        
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'role_id' => $data['role_id'],
         ]);
+        
+        Client::create([
+            'id_user' => $user->id,
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'age' => $data['age'],
+            'weight' => $data['weight'],
+            'height' => $data['height'],
+        ]);
+        
+        // Generate a Sanctum token for the user
+        $token = $user->createToken('auth_token')->plainTextToken;
+        
+        return $token;
     }
 
     public function getClientByUserId(int $userId) {

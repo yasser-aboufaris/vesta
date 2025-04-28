@@ -4,7 +4,7 @@ import { useState } from 'react'
 // import PostCard from './components/PostCard'
 import Feed from './components/feed'
 import Nav from './components/nav'
-// import CreatePostBar from './components/buttons/showPostingForm'
+import CreatePostBar from './components/buttons/showPostingForm'
 // import Footer from './components/footer'
 // import ProgramCard from './components/ProgramCard'
 import './App.css'
@@ -24,6 +24,7 @@ function App() {
   <Footer /> */}
   {/* <SignUpFormClient/> */}
   <Nav/>
+  <CreatePostBar/>
   <Feed />
 </div>
 

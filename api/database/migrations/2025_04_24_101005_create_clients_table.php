@@ -13,16 +13,14 @@ return new class extends Migration
     {
 
         Schema::create('clients', function (Blueprint $table) {
-            $table->integer('id_user');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+    
             $table->integer('age');
             $table->float('weight');
             $table->float('height');
             $table->timestamps();
         });
+        
     }
 
     /**

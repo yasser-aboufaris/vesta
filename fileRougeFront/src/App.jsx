@@ -1,13 +1,15 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import PostCard from './components/PostCard'
-import Feed from './components/feed'
-import Nav from './components/nav'
-import CreatePostBar from './components/buttons/showPostingForm'
-import Footer from './components/footer'
-import ProgramCard from './components/ProgramCard'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
+// import PostCard from './components/PostCard'
+// import Feed from './components/feed'
+// import Nav from './components/nav'
+// import CreatePostBar from './components/buttons/showPostingForm'
+// import Footer from './components/footer'
+// import ProgramCard from './components/ProgramCard'
 import './App.css'
+import SignUpFormClient from './components/forms/SignUpClient'
+// import Home from './components/pages/Home'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,8 +20,10 @@ function App() {
   <Nav />
   <Feed />
   <Footer /> */}
-  <ProgramCard/>
-  <Footer />
+  {/* <ProgramCard/>
+  <Footer /> */}
+  <SignUpFormClient/>
+   
 </div>
 
 

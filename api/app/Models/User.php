@@ -21,7 +21,25 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function client()
+{
+    return $this->hasOne(Client::class);
+}
+
+    public function trainer(){
+        return $this->hasOne(Trainer::class);
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -13,7 +13,8 @@ class PostRepository implements PostRepositoryInterface
 {
     public function all()
     {
-        return Post::all();
+        $posts = Post::with('tags')->get();
+        return $posts;
     }
     
     public function find($id)
@@ -34,19 +35,33 @@ class PostRepository implements PostRepositoryInterface
 
     public function create(array $data)
     {
-        $data['user_id'] = 2;
+        $data['user_id'] = 9;
+    
         $tags = $data['tags'] ?? []; 
+        
         unset($data['tags']);
         
         $post = Post::create($data);
-    
+        
         if (!empty($tags)) {
             $post->tags()->attach($tags);
         }
+        
+        $post->load('tags');
     
         return $post;
     }
     
+
+    public function getPostsWithTags()
+{
+    // Eager load the tags for each post
+    $posts = Post::with('tags')->get();
+
+    return $posts;
+}
+
+
     public function update($id, array $data)
     {
         $post = $this->find($id);

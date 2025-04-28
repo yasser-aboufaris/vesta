@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repositories;
 
 use App\Models\Tag;
@@ -7,10 +6,9 @@ use App\Repositories\Interfaces\TagRepositoryInterface;
 
 class TagRepository implements TagRepositoryInterface
 {
-    // Fetch all tags
     public function all()
     {
-        return Tag::all(); // Fetch all tags from the database
+        return Tag::all();
     }
 
     public function create(array $data)

@@ -24,7 +24,7 @@ const PostCard = ({ post }) => {
   };
 
   return (
-    <div className="bg-gray-50 dark:bg-black rounded-lg shadow-md overflow-hidden border border-red-200 dark:border-red-800">
+    <div className="bg-gray-50 dark:bg-black rounded-lg shadow-md overflow-hidden border border-gray-200 dark:border-gray-800">
       <div className="p-4">
         <h2 className="text-lg font-medium text-black dark:text-gray-100">
           {post.title}
@@ -40,7 +40,7 @@ const PostCard = ({ post }) => {
           {isContentTooLong && (
             <button
               onClick={toggleContent}
-              className="text-red-500 dark:text-red-400 text-sm mt-2 hover:underline focus:outline-none"
+              className="text-gray-500 dark:text-gray-400 text-sm mt-2 hover:underline focus:outline-none"
             >
               {showFullContent ? "Show less" : "Read more"}
             </button>
@@ -61,11 +61,13 @@ const PostCard = ({ post }) => {
         )}
       </div>
 
-      <div className="flex items-center justify-between px-4 py-3 bg-gray-100 dark:bg-gray-900 border-t border-red-200 dark:border-red-800">
+      {/* Action bar with voting and interactions */}
+      <div className="flex items-center justify-between px-4 py-3 bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+        {/* Voting system */}
         <div className="flex items-center space-x-1">
           <button 
             onClick={() => handleVote(1)}
-            className={`p-1 rounded hover:bg-red-100 dark:hover:bg-red-900 ${
+            className={`p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800 ${
               voteStatus === 1 
                 ? "text-orange-500" 
                 : "text-gray-500 dark:text-gray-400"
@@ -85,7 +87,7 @@ const PostCard = ({ post }) => {
           
           <button 
             onClick={() => handleVote(-1)}
-            className={`p-1 rounded hover:bg-red-100 dark:hover:bg-red-900 ${
+            className={`p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800 ${
               voteStatus === -1 
                 ? "text-blue-500" 
                 : "text-gray-500 dark:text-gray-400"
@@ -97,12 +99,12 @@ const PostCard = ({ post }) => {
         </div>
 
         <div className="flex space-x-4">
-          <button className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:bg-red-100 dark:hover:bg-red-900 px-2 py-1 rounded transition-colors duration-150">
+          <button className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 px-2 py-1 rounded transition-colors duration-150">
             <MessageSquare size={16} />
             <span className="text-sm">{post.comments || 0} Comments</span>
           </button>
           
-          <button className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:bg-red-100 dark:hover:bg-red-900 hover:text-red-500 px-2 py-1 rounded transition-colors duration-150">
+          <button className="flex items-center gap-1 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-red-500 px-2 py-1 rounded transition-colors duration-150">
             <Flag size={16} />
             <span className="text-sm">Report</span>
           </button>

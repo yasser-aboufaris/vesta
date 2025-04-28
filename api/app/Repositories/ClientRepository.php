@@ -4,38 +4,54 @@ namespace App\Repositories;
 use App\Models\Client;
 use App\Models\User;
 use App\Repositories\Interfaces\ClientRepositoryInterface;
+use Illuminate\Support\Facades\DB;
+use InvalidArgumentException;
 
-class ClientRepository extends UserRepository implements ClientRepositoryInterface {
+class ClientRepository extends UserRepository implements ClientRepositoryInterface
+{
 
-    public function signUp(array $data)
+    public function signUp(array $data): string
     {
-        $data['role_id'] = 3; 
-        $data['password'] = $this->hashPassword($data['password']);
-        
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => $data['password'],
-            'role_id' => $data['role_id'],
+            'password' => bcrypt($data['password']),
+            'role_id' => 3,
         ]);
-        
-        Client::create([
+    
+        $user->client()->create([
+            'age' => $data['age'],
+            'weight' => $data['weight'],
+            'height' => $data['height'],
+            'race' => $data['race']
+        ]);
+    
+        return $user;
+    }
+    public function test(){
+        return "it worked";
+    }
+    
+
+    public function insertClientData(User $user, array $data): Client
+    {
+        $requiredFields = ['age', 'weight', 'height'];
+        foreach ($requiredFields as $field) {
+            if (!isset($data[$field])) {
+                throw new InvalidArgumentException("Missing required field: $field");
+            }
+        }
+
+        return Client::create([
             'id_user' => $user->id,
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $data['password'],
             'age' => $data['age'],
             'weight' => $data['weight'],
             'height' => $data['height'],
         ]);
-        
-        // Generate a Sanctum token for the user
-        $token = $user->createToken('auth_token')->plainTextToken;
-        
-        return $token;
     }
 
-    public function getClientByUserId(int $userId) {
-        return Client::where('user_id', $userId)->get();
+    public function getClientByUserId(int $userId): ?Client
+    {
+        return Client::where('id_user', $userId)->first();
     }
 }

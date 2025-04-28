@@ -16,4 +16,7 @@ class AuthController extends Controller
         ]);
         UserRepository::login($validatedData);
     }
+    public function dd(Request $request){
+        dd($request);
+    }
 }

@@ -33,6 +33,7 @@ class PostRepository implements PostRepositoryInterface
 
     public function create(array $data)
     {
+        $data['user_id'] =2; 
         return Post::create($data);
     }
 

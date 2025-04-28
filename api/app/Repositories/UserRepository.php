@@ -3,26 +3,35 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use Illuminate\Support\Facades\Hash;
+use InvalidArgumentException;
 
-abstract class UserRepository implements UserRepositoryInterface {
+abstract class UserRepository implements UserRepositoryInterface
+{
+    abstract public function signUp(array $data): string;
 
-    abstract public function signUp(array $data);
+    public static function login(array $credentials): ?User
+    {
+        if (!isset($credentials['email']) || !isset($credentials['password'])) {
+            throw new InvalidArgumentException('Email and password are required.');
+        }
 
-    public static function login(array $credentials) {
         $user = User::where('email', $credentials['email'])->first();
 
-        if (!$user || !$this->checkPassword($credentials['password'], $user->password)) {
+        if (!$user || !static::checkPassword($credentials['password'], $user->password)) {
             return null;
         }
 
-        return "You are logged in successfully.";
+        return $user;
     }
 
-    protected function hashPassword(string $password): string {
-        return password_hash($password, PASSWORD_DEFAULT);
+    protected static function hashPassword(string $password): string
+    {
+        return Hash::make($password);
     }
 
-    protected function checkPassword(string $raw, string $hashed): bool {
-        return password_verify($raw, $hashed);
+    protected static function checkPassword(string $raw, string $hashed): bool
+    {
+        return Hash::check($raw, $hashed);
     }
 }

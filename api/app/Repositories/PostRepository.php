@@ -8,6 +8,7 @@ use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
+
 class PostRepository implements PostRepositoryInterface
 {
     public function all()
@@ -33,10 +34,19 @@ class PostRepository implements PostRepositoryInterface
 
     public function create(array $data)
     {
-        $data['user_id'] =2; 
-        return Post::create($data);
+        $data['user_id'] = 2;
+        $tags = $data['tags'] ?? []; 
+        unset($data['tags']);
+        
+        $post = Post::create($data);
+    
+        if (!empty($tags)) {
+            $post->tags()->attach($tags);
+        }
+    
+        return $post;
     }
-
+    
     public function update($id, array $data)
     {
         $post = $this->find($id);

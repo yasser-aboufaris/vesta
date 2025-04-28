@@ -29,6 +29,7 @@ class PostController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+            'tags' => 'array',
         ]);
 
         $post = $this->postRepository->create($validatedData);

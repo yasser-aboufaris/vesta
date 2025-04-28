@@ -1,8 +1,8 @@
 import React from "react";
-import Button from './buttons/LoginCaller';
-import ClientSignCButton from './buttons/ClientSignUp';
+// import Button from './buttons/LoginCaller';
+// import ClientSignCButton from './buttons/ClientSignUp';
 
-const Nav = ({ setState }) => {
+const Nav = () => {
   return (
     <nav className="fixed top-0 bt-6 flex items-center w-[100%] justify-between bg-black text-white p-5 shadow-lg">
       <div className="text-2xl font-extrabold tracking-wider">
@@ -28,11 +28,6 @@ const Nav = ({ setState }) => {
             className="hover:text-yellow-400 transition-all duration-300 hover:border-b-2 hover:border-yellow-400 pb-1">Contact</a>
         </li>
       </ul>
-
-      <div>
-        <Button setState={setState} />
-        <ClientSignCButton setState={setState} />
-      </div>
     </nav>
   );
 };

@@ -2,8 +2,8 @@ import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 // import PostCard from './components/PostCard'
-// import Feed from './components/feed'
-// import Nav from './components/nav'
+import Feed from './components/feed'
+import Nav from './components/nav'
 // import CreatePostBar from './components/buttons/showPostingForm'
 // import Footer from './components/footer'
 // import ProgramCard from './components/ProgramCard'
@@ -22,8 +22,9 @@ function App() {
   <Footer /> */}
   {/* <ProgramCard/>
   <Footer /> */}
-  <SignUpFormClient/>
-   
+  {/* <SignUpFormClient/> */}
+  <Nav/>
+  <Feed />
 </div>
 
 

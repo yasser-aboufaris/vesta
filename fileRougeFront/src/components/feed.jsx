@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import PostCard from "./PostCard";
+import PostCard from "./PostCard"; 
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
@@ -10,7 +10,7 @@ const Feed = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get("http://file-rouge.test/api/posts");
+        const res = await axios.get("http://127.0.0.1:8000/api/posts");
         setPosts(res.data);
       } catch (err) {
         console.error(err);
@@ -27,8 +27,10 @@ const Feed = () => {
   if (error) return <div className="error-text">{error}</div>;
 
   return (
-    <>
-      <div className="feed-container w-full ">
+    <div style={{ backgroundColor: "black" }} >
+             <div className="feed-container mt-24 w-full " style={{ maxWidth: "36rem", margin: "3rem auto" }}>
+      </div>
+      <div className="feed-container mt-24 w-full " style={{ maxWidth: "36rem", margin: "5rem auto" }}>
         {posts.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
@@ -59,7 +61,7 @@ const Feed = () => {
           }
         `}
       </style>
-    </>
+    </div>
   );
 };
 

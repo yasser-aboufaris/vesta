@@ -37,5 +37,5 @@ Route::get('post/{id}', [PostController::class, 'show']);
 Route::post('post', [PostController::class, 'store']);
 Route::put('post/{id}', [PostController::class, 'update']);
 Route::delete('post/{id}', [PostController::class, 'destroy']);
-Route::post('posts', [PostController::class, 'storeMultiple']);
+Route::post('posts', [PostController::class, 'bulkStore']);
 

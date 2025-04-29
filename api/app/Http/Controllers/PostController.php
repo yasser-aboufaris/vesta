@@ -54,30 +54,31 @@ class PostController extends Controller
     }       
     
 
-
-
-
-
-
-
-
-    public function storeMultiple(Request $request)
-{
-    $validatedData = $request->validate([
-        'posts' => 'required|array',
-        'posts.*.title' => 'required|string|max:255',
-        'posts.*.content' => 'required|string',
-    ]);
-
-    $posts = $validatedData['posts'];
-    $createdPosts = [];
-
-    foreach ($posts as $postData) {
-        $post = $this->postRepository->create($postData);
-        $createdPosts[] = $post;
+    public function bulkStore(Request $request)
+    {
+        // dd($request->all());
+        $data = $request->validate([
+            'posts' => 'required|array',
+            'posts.*.title' => 'required|string|max:255',
+            'posts.*.content' => 'required|string',
+            'posts.*.tags' => 'array',
+            'posts.*.tags.*' => 'integer', // Ensures tags are integers (or another specific type if needed)
+        ]);
+        // dd($data);
+    
+        $createdPosts = [];
+    
+        foreach ($data['posts'] as $postData) {
+            $createdPosts[] = $this->postRepository->create($postData);
+        }
+    
+        return response()->json($createdPosts, 201);
     }
 
-    return response()->json($createdPosts, 201);
-}
+
+
+
+
+
 
 }

@@ -35,7 +35,7 @@ class PostRepository implements PostRepositoryInterface
 
     public function create(array $data)
     {
-        $data['user_id'] = 9;
+        $data['user_id'] = 3;
     
         $tags = $data['tags'] ?? []; 
         

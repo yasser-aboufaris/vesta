@@ -7343,3 +7343,65 @@ Did you mean one of these?
 #55 /home/yasser/Desktop/final/vesta/api/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(16): require_once('...')
 #56 {main}
 "} 
+[2025-04-29 08:22:06] local.ERROR: Command "make:migratiom" is not defined.
+
+Did you mean one of these?
+    make:cast
+    make:channel
+    make:command
+    make:component
+    make:controller
+    make:event
+    make:exception
+    make:factory
+    make:job
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:notification
+    make:observer
+    make:policy
+    make:provider
+    make:request
+    make:resource
+    make:rule
+    make:scope
+    make:seeder
+    make:test
+    make:view {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"make:migratiom\" is not defined.
+
+Did you mean one of these?
+    make:cast
+    make:channel
+    make:command
+    make:component
+    make:controller
+    make:event
+    make:exception
+    make:factory
+    make:job
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:notification
+    make:observer
+    make:policy
+    make:provider
+    make:request
+    make:resource
+    make:rule
+    make:scope
+    make:seeder
+    make:test
+    make:view at /home/yasser/Desktop/final/vesta/api/vendor/symfony/console/Application.php:737)
+[stacktrace]
+#0 /home/yasser/Desktop/final/vesta/api/vendor/symfony/console/Application.php(266): Symfony\\Component\\Console\\Application->find()
+#1 /home/yasser/Desktop/final/vesta/api/vendor/symfony/console/Application.php(175): Symfony\\Component\\Console\\Application->doRun()
+#2 /home/yasser/Desktop/final/vesta/api/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(201): Symfony\\Component\\Console\\Application->run()
+#3 /home/yasser/Desktop/final/vesta/api/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 {main}
+"} 

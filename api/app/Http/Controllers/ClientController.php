@@ -12,13 +12,9 @@ class ClientController extends Controller
     public function __Construct(ClientRepositoryInterface $clientReposistory){
          $this->clientRepository = $clientReposistory;
     }
-    public function signUp(Request $request){
-        // dd($request->all());
-        // return response()->json([
-        //     'message' => 'Client created successfully',
-        //     'client' => $request->all()
-        // ], 201);
-        // dd($request);
+    public function signUp(Request $request)
+    {
+        dd($request->all());
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
@@ -27,17 +23,21 @@ class ClientController extends Controller
             'weight' => 'required|numeric|min:0',
             'height' => 'required|numeric|min:0',
             'race' => 'required|string',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
-        // dd($validatedData);
-
-        
-        
+    
+        if ($request->hasFile('profile_picture')) {
+            $validatedData['profile_picture'] = $request->file('profile_picture');
+        }
+    
         $client = $this->clientRepository->signUp($validatedData);
+    
         return response()->json([
             'message' => 'Client created successfully',
             'client' => $client
         ], 201);
     }
+    
     public function test(){
         $return = $this->clientRepository->test(); 
         return response()->json([

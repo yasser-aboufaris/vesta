@@ -24,13 +24,13 @@ function App() {
   <Footer /> */}
   {/* <ProgramCard/>
   <Footer /> */}
-  {/* <SignUpFormClient/> */}
+  <SignUpFormClient/>
   {/* <Nav/>
   <CreatePostBar/>
   <Feed /> */}
   {/* <CreatePostForm/> */}
   
-<Home/>
+{/* <Home/> */}
 </div>
 
 

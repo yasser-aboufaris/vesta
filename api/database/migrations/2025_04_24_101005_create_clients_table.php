@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('age');
             $table->float('weight');
             $table->float('height');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
         

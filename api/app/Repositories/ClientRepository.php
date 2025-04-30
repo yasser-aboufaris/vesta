@@ -19,15 +19,22 @@ class ClientRepository extends UserRepository implements ClientRepositoryInterfa
             'role_id' => 2,
         ]);
     
+        $imagePath = null;
+        if (isset($data['profile_picture'])) {
+            $imagePath = $data['profile_picture']->store('clients', 'public');
+        }
+    
         $user->client()->create([
             'age' => $data['age'],
             'weight' => $data['weight'],
             'height' => $data['height'],
-            'race' => $data['race']
+            'race' => $data['race'],
+            'image' => $imagePath,
         ]);
     
         return $user;
     }
+    
     public function test(){
         return "it worked";
     }

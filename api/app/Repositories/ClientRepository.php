@@ -16,20 +16,16 @@ class ClientRepository extends UserRepository implements ClientRepositoryInterfa
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'role_id' => 2,
+            'role_id' => 3,
         ]);
     
-        $imagePath = null;
-        if (isset($data['profile_picture'])) {
-            $imagePath = $data['profile_picture']->store('clients', 'public');
-        }
+
     
         $user->client()->create([
             'age' => $data['age'],
             'weight' => $data['weight'],
             'height' => $data['height'],
             'race' => $data['race'],
-            'image' => $imagePath,
         ]);
     
         return $user;
@@ -61,4 +57,20 @@ class ClientRepository extends UserRepository implements ClientRepositoryInterfa
     {
         return Client::where('id_user', $userId)->first();
     }
+    public function updateClientData(int $userId, array $data): bool
+    {
+        $client = Client::where('id_user', $userId)->first();
+        if (!$client) {
+            return false;
+        }
+    
+        if (isset($data['profile_picture']) && $data['profile_picture'] instanceof \Illuminate\Http\UploadedFile) {
+            $path = $data['profile_picture']->store('profiles', 'public');
+            $data['profile_picture'] = $path;
+        }
+    
+        return $client->update($data);
+    }
+    
+
 }

@@ -14,7 +14,6 @@ class ClientController extends Controller
     }
     public function signUp(Request $request)
     {
-        dd($request->all());
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
@@ -23,7 +22,6 @@ class ClientController extends Controller
             'weight' => 'required|numeric|min:0',
             'height' => 'required|numeric|min:0',
             'race' => 'required|string',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
     
         if ($request->hasFile('profile_picture')) {

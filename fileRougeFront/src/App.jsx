@@ -4,9 +4,11 @@ import { useState } from 'react'
 // import PostCard from './components/PostCard'
 import Feed from './components/feed'
 import Nav from './components/nav'
+import CreatePostForm from './components/forms/PostingForm'
 import CreatePostBar from './components/buttons/showPostingForm'
 // import Footer from './components/footer'
 // import ProgramCard from './components/ProgramCard'
+import Home from './components/pages/Home'
 import './App.css'
 import SignUpFormClient from './components/forms/SignUpClient'
 // import Home from './components/pages/Home'
@@ -23,9 +25,12 @@ function App() {
   {/* <ProgramCard/>
   <Footer /> */}
   {/* <SignUpFormClient/> */}
-  <Nav/>
+  {/* <Nav/>
   <CreatePostBar/>
-  <Feed />
+  <Feed /> */}
+  {/* <CreatePostForm/> */}
+  
+<Home/>
 </div>
 
 

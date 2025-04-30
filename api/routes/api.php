@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 USE App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -38,4 +39,5 @@ Route::post('post', [PostController::class, 'store']);
 Route::put('post/{id}', [PostController::class, 'update']);
 Route::delete('post/{id}', [PostController::class, 'destroy']);
 Route::post('posts', [PostController::class, 'bulkStore']);
-
+Route::get('tags', [TagController::class, 'index']);
+Route::post('posts/{id}/vote', [VoteController::class, 'insert']);

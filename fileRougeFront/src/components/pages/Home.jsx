@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Nav from '../nav.jsx';
+import PostForm from "../forms/PostingForm.jsx";
+import Feed from "../feed.jsx";
 import LoginForm from "../forms/LoginForm.jsx";
 import SignUpFormClient from "../forms/SignUpClient.jsx";
 import Footer from '../footer.jsx';
@@ -10,21 +12,19 @@ const Home = () => {
   };
   return (
     <div>
-      <Nav setState={setState} />
-      <div>
-        <h1>Home Page</h1>
-        <p>State value: {state}</p>
+      <Nav />
+      <div className="flex">
+        <div className="w-1/3 sticky top-0 self-start">
+          <PostForm />
+        </div>
+        <div className="w-2/3 border-l border-gray-700 pl-4"> 
+        <Feed  />
+        </div>
+
       </div>
-      {state === 1 && (
-        <div className="max-w-md mx-auto mt-8 p-4 border rounded shadow">
-          <LoginForm onClose={handleCloseLogin} />
-        </div>
-      )}
-      {state === 2 && (
-        <div className="max-w-md mx-auto mt-8 p-4 border rounded shadow">
-          <SignUpFormClient onClose={handleCloseLogin} />
-        </div>
-      )}
+      <div>
+      </div>
+
       <Footer />
     </div>
   );

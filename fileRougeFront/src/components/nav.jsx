@@ -4,8 +4,8 @@ import React from "react";
 
 const Nav = () => {
   return (
-    <nav className="fixed top-0 bt-6 flex items-center w-[100%] justify-between bg-black text-white p-5 shadow-lg">
-      <div className="text-2xl font-extrabold tracking-wider">
+<nav className="top-0 py-4 px-8 flex items-center w-full justify-between bg-black text-white shadow-lg">
+<div className="text-2xl font-extrabold tracking-wider">
         <a href="#" className="hover:text-red-600 flex items-center">
           <span className="mr-1">Vesta</span><span className="text-red-800">Fit</span>
         </a>

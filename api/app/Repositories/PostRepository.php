@@ -53,14 +53,22 @@ class PostRepository implements PostRepositoryInterface
     }
     
 
-    public function getPostsWithTags()
+    public function getPostsFull()
 {
-    // Eager load the tags for each post
-    $posts = Post::with('tags')->get();
+    $posts = Post::all();
+    foreach ($posts as $post) {
+        $post->owner = $post->user()->first();
+        $post->vote_count = $post->votes()->count();
+        $post->comment_count = $post->comments()->count();
+    }
+    
+    foreach ($posts as $post) {
+        $post->tags = $post->tags()->get();
+    }
 
     return $posts;
 }
-
+    
 
     public function update($id, array $data)
     {
@@ -71,6 +79,9 @@ class PostRepository implements PostRepositoryInterface
     }
 
 
+    
+    
+
     public function delete($id)
     {
         $post = $this->find($id);
@@ -78,4 +89,12 @@ class PostRepository implements PostRepositoryInterface
         
         return $post->delete();
     }
+
+    public function getPostsByUser($userId)
+    {
+        return Post::where('user_id', $userId)->get();
+    }
+
+
+
 }

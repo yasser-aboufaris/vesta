@@ -14,7 +14,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = $this->postRepository->all();
+        $posts = $this->postRepository->getPostsFull();
         return response()->json($posts);
     }
 
@@ -62,7 +62,7 @@ class PostController extends Controller
             'posts.*.title' => 'required|string|max:255',
             'posts.*.content' => 'required|string',
             'posts.*.tags' => 'array',
-            'posts.*.tags.*' => 'integer', // Ensures tags are integers (or another specific type if needed)
+            'posts.*.tags.*' => 'integer',
         ]);
         // dd($data);
     

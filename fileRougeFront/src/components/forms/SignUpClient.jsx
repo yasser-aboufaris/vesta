@@ -10,7 +10,7 @@ function SignUpFormClient() {
     age: '',
     weight: '',
     height: '',
-    race: '' // ✅ Added this bad boy
+    race: ''
   });
 
   const [error, setError] = useState(""); 
@@ -36,6 +36,11 @@ function SignUpFormClient() {
 
     try {
       const response = await axios.post("http://localhost:8000/api/auth/signup/client", form);
+
+      // ✅ Store token and user info locally
+      localStorage.setItem("auth_token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.client));
+
       console.log("Signup success:", response.data);
       setIsFormVisible(false);
     } catch (error) {
@@ -121,7 +126,6 @@ function SignUpFormClient() {
             className="w-full mb-3 p-2 border rounded"
           />
 
-          {/* ✅ Race field added here */}
           <input
             type="text"
             name="race"

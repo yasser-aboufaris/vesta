@@ -3,24 +3,61 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Vote;
+use App\Repositories\Interfaces\VoteRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class VoteController extends Controller
 {
-    public function insert(Request $request)
+    protected $voteRepository;
+
+    public function __construct(VoteRepositoryInterface $voteRepository)
     {
-        $validatedData = $request->validate([
+        $this->voteRepository = $voteRepository;
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
             'post_id' => 'required|integer|exists:posts,id',
-            'user_id' => 'required|integer|exists:users,id',
-            'vote_type' => 'required|string|in:upvote,downvote',
+            'vote_type' => ['required', Rule::in([1, -1])],
         ]);
 
-        Vote::where('post_id', $validatedData['post_id'])
-            ->where('user_id', $validatedData['user_id'])
-            ->delete();
-        Vote::create($validatedData);
-        
-        return response()->json($vote, 201);    
+        $userId = Auth::id();
+
+        // Optional: delete existing vote first to avoid duplicate
+        $this->voteRepository->deleteVote($request->post_id, $userId);
+
+        $vote = $this->voteRepository->insertVote([
+            'user_id' => $userId,
+            'post_id' => $request->post_id,
+            'vote_type' => $request->vote_type,
+        ]);
+
+        return response()->json(['message' => 'Vote recorded successfully.', 'vote' => $vote], 201);
     }
-    
+
+    public function destroy(Request $request)
+    {
+        $request->validate([
+            'post_id' => 'required|integer|exists:posts,id',
+        ]);
+
+        $userId = Auth::id();
+
+        $deleted = $this->voteRepository->deleteVote($request->post_id, $userId);
+
+        if ($deleted) {
+            return response()->json(['message' => 'Vote removed successfully.']);
+        }
+
+        return response()->json(['message' => 'No vote found to delete.'], 404);
+    }
+
+    public function count($postId)
+    {
+        $count = $this->voteRepository->countVotesForPost($postId);
+
+        return response()->json(['vote_count' => $count ?? 0]);
+    }
 }

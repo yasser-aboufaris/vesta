@@ -19,8 +19,6 @@ class ClientRepository extends UserRepository implements ClientRepositoryInterfa
             'role_id' => 3,
         ]);
     
-
-    
         $user->client()->create([
             'age' => $data['age'],
             'weight' => $data['weight'],

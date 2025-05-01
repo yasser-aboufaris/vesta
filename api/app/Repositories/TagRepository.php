@@ -15,6 +15,7 @@ class TagRepository implements TagRepositoryInterface
     {
         return Tag::create($data);
     }
+    
 
     public function delete($id)
     {

@@ -23,6 +23,10 @@ const PostCard = ({ post }) => {
     setIsCommenting(!isCommenting); 
   };
 
+  const handleClosingComments = () =>{
+    setIsCommenting(false);
+  }
+
   const handleCommentChange = (e) => {
     setNewComment(e.target.value); 
   };
@@ -96,7 +100,7 @@ const PostCard = ({ post }) => {
       </div>
 
       {isCommenting && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0  flex justify-center items-center z-50">
           <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-3/4 max-w-2xl">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Comments</h3>
             
@@ -117,12 +121,21 @@ const PostCard = ({ post }) => {
                 className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:focus:ring-blue-300 mb-4"
                 rows="4"
               ></textarea>
+              <div className='flex justify-between'>
               <button
                 type="submit"
                 className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-150"
               >
                 Submit Comment
               </button>
+              <button
+                onClick={handleClosingComments}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-150"
+              >
+                Cancel
+              </button>
+              </div>
+
             </form>
           </div>
         </div>

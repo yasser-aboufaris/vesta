@@ -11,9 +11,7 @@ use App\Repositories\PostRepository;
 use App\Repositories\Interfaces\PostRepositoryInterface;
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
+
     public function register(): void
     {
         $this->app->bind(ClientRepositoryInterface::class, ClientRepository::class);

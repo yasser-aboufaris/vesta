@@ -12,4 +12,23 @@ class CommentController extends Controller
     {
         $this->commentRepository = $commentRepository;
     }
+    public function index()
+    {
+        $comments = $this->commentRepository->all();
+        return response()->json($comments);
+    }
+    public function show($id)
+    {
+        $comment = $this->commentRepository->find($id);
+        return response()->json($comment);
+    }
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'content' => 'required|string|max:255',
+            'post_id' => 'required|integer|exists:posts,id',
+        ]);
+        $comment = $this->commentRepository->create($validatedData);
+        return response()->json($comment, 201);
+    }
 }

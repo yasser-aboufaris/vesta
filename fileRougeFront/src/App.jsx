@@ -24,12 +24,11 @@ function App() {
   <Footer /> */}
   {/* <ProgramCard/>
   <Footer /> */}
-  <SignUpFormClient/>
+  {/* <SignUpFormClient/> */}
   {/* <Nav/>
   <CreatePostBar/>
-  <Feed /> */}
   {/* <CreatePostForm/> */}
-  
+<Feed/>  
 {/* <Home/> */}
 </div>
 

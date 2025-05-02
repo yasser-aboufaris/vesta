@@ -26,11 +26,12 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'tags' => 'array',
         ]);
+        // dd($validatedData);
 
         $post = $this->postRepository->create($validatedData);
         return response()->json($post, 201);

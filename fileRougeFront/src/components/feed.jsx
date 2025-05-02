@@ -3,6 +3,7 @@ import axios from "axios";
 import PostCard from "./PostCard"; 
 
 const Feed = () => {
+  // console.log("Feed component rendered");
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,6 +12,7 @@ const Feed = () => {
     const fetchPosts = async () => {
       try {
         const res = await axios.get("http://127.0.0.1:8000/api/posts");
+        console.log("Fetched posts:", res);
         setPosts(res.data);
       } catch (err) {
         console.error(err);
@@ -19,6 +21,7 @@ const Feed = () => {
         setLoading(false);
       }
     };
+    // console.log(res);
 
     fetchPosts();
   }, []);

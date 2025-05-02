@@ -54,10 +54,4 @@ class VoteController extends Controller
         return response()->json(['message' => 'No vote found to delete.'], 404);
     }
 
-    public function count($postId)
-    {
-        $count = $this->voteRepository->countVotesForPost($postId);
-
-        return response()->json(['vote_count' => $count ?? 0]);
-    }
 }

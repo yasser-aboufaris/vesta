@@ -41,6 +41,5 @@ Route::put('post/{id}', [PostController::class, 'update']);
 Route::delete('post/{id}', [PostController::class, 'destroy']);
 Route::post('posts', [PostController::class, 'bulkStore']);
 Route::get('tags', [TagController::class, 'index']);
-Route::post('posts/{id}/vote', [VoteController::class, 'insert']);
 Route::post('/votes', [VoteController::class, 'store']);
 Route::delete('/votes', [VoteController::class, 'destroy']);

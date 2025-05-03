@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\VoteRepositoryInterface;
 use Illuminate\Validation\Rule;
+use App\Repositories\VoteRepository;
 
 class VoteController extends Controller
 {
     protected $voteRepository;
 
-    public function __construct(VoteRepositoryInterface $voteRepository)
+    public function __construct(VoteRepository $voteRepository)
     {
         $this->voteRepository = $voteRepository;
     }
@@ -31,5 +32,11 @@ class VoteController extends Controller
         ]);
 
         return response()->json(['message' => 'Vote stored successfully.', 'vote' => $vote], 201);
+    }
+    public function destroy($post_id)
+    {   
+        $user_id = 5;
+        $this->voteRepository->deleteVote($post_id, $user_id);
+        return response()->json(['message' => 'Vote deleted successfully.'], 200);
     }
 }

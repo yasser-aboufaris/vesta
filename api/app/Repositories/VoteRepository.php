@@ -20,4 +20,8 @@ class VoteRepository implements VoteRepositoryInterface
                    ->where('user_id', $userId)
                    ->delete();
     }
+    public function VoteDelete($id)
+    {
+        return Vote::destroy($id);
+    }
 }

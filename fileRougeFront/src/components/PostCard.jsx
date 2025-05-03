@@ -130,15 +130,19 @@ const PostCard = ({ post }) => {
           <div className="bg-white dark:bg-white rounded-lg p-6 w-3/4 max-w-2xl border-2 border-green-300">
             <h3 className="text-xl font-semibold text-green-700 dark:text-green-700 mb-4">Comments</h3>
 
-            <div className="mt-4 space-y-2 max-h-64 overflow-y-auto pr-2">
+            <div className="mt-4 space-y-2 max-h-64 overflow-y-auto pr-2 bg-white dark:bg-gray-800 border border-green-100 dark:border-green-900 rounded-lg p-2">
               {comments.map((comment) => (
-                <div key={comment.id} className="bg-white dark:bg-gray-900 p-2 rounded shadow">
-                  <p className="text-sm text-gray-800 dark:text-gray-200">
-                    <span className="font-semibold">{comment.user?.name || "Unknown User"}:</span> {comment.content}
+                <div
+                  key={comment.id}
+                  className="bg-green-50 dark:bg-green-900/30 p-3 rounded-md shadow-sm border border-green-100 dark:border-green-800"
+                >
+                  <p className="text-sm text-green-900 dark:text-green-100">
+                    {comment.content}
                   </p>
                 </div>
               ))}
             </div>
+
 
 
             <form onSubmit={handleCommentSubmit}>

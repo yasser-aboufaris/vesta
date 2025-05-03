@@ -4,8 +4,8 @@ import { ChevronUp, ChevronDown, MessageSquare, Flag } from "lucide-react";
 
 const PostCard = ({ post }) => {
   const [isCommenting, setIsCommenting] = useState(false);
-  const [newComment, setNewComment] = useState(""); 
-  const [comments, setComments] = useState(post.comments); 
+  const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState(post.comments);
   const [showFull, setShowFull] = useState(false);
   const [voteStatus, setVoteStatus] = useState(0);
   const [voteCount, setVoteCount] = useState(Number(post.vote_count));
@@ -37,15 +37,15 @@ const PostCard = ({ post }) => {
   }
 
   const handleCommentClick = () => {
-    setIsCommenting(!isCommenting); 
+    setIsCommenting(!isCommenting);
   };
 
-  const handleClosingComments = () =>{
+  const handleClosingComments = () => {
     setIsCommenting(false);
   }
 
   const handleCommentChange = (e) => {
-    setNewComment(e.target.value); 
+    setNewComment(e.target.value);
   };
 
   const handleCommentSubmit = (e) => {
@@ -84,7 +84,7 @@ const PostCard = ({ post }) => {
             </button>
           )}
         </div>
-        
+
         {/* Action Bar */}
         <div className="flex items-center justify-between mt-4 bg-green-50 dark:bg-green-50 p-2 rounded-lg">
           {/* Voting Section */}
@@ -129,15 +129,17 @@ const PostCard = ({ post }) => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white dark:bg-white rounded-lg p-6 w-3/4 max-w-2xl border-2 border-green-300">
             <h3 className="text-xl font-semibold text-green-700 dark:text-green-700 mb-4">Comments</h3>
-            
-            <div className="space-y-4 mb-4">
+
+            <div className="mt-4 space-y-2 max-h-64 overflow-y-auto pr-2">
               {comments.map((comment) => (
-                <div key={comment.id} className="bg-green-50 dark:bg-green-50 p-3 rounded-lg border border-green-200">
-                  <p className="text-gray-800 dark:text-gray-800">{comment.text}</p>
-                  <small className="text-green-600 dark:text-green-600">{comment.user}</small>
+                <div key={comment.id} className="bg-white dark:bg-gray-900 p-2 rounded shadow">
+                  <p className="text-sm text-gray-800 dark:text-gray-200">
+                    <span className="font-semibold">{comment.user?.name || "Unknown User"}:</span> {comment.content}
+                  </p>
                 </div>
               ))}
             </div>
+
 
             <form onSubmit={handleCommentSubmit}>
               <textarea

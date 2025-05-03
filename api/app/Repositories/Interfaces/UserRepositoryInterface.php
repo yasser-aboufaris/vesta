@@ -5,5 +5,5 @@ use App\Models\User;
 
 interface UserRepositoryInterface {
     public function signUp(array $data);
-    public static function login(array $credentials);
+    public static function login(array $credentials) ;
 }

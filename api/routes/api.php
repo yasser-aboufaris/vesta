@@ -43,3 +43,4 @@ Route::post('posts', [PostController::class, 'bulkStore']);
 Route::get('tags', [TagController::class, 'index']);
 Route::post('/votes', [VoteController::class, 'store']);
 Route::delete('/votes', [VoteController::class, 'destroy']);
+Route::post('/comments', [CommentController::class, 'store']);

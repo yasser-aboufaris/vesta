@@ -28,6 +28,8 @@ class CommentController extends Controller
             'content' => 'required|string|max:255',
             'post_id' => 'required|integer|exists:posts,id',
         ]);
+        // $validatedData['user_id'] = Auth()->id();
+        $validatedData['user_id'] = 5;
         $comment = $this->commentRepository->create($validatedData);
         return response()->json($comment, 201);
     }

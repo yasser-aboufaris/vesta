@@ -134,14 +134,23 @@ const PostCard = ({ post }) => {
               {comments.map((comment) => (
                 <div
                   key={comment.id}
-                  className="bg-green-50 dark:bg-green-900/30 p-3 rounded-md shadow-sm border border-green-100 dark:border-green-800"
+                  className="bg-green-50 dark:bg-green-900/30 p-3 rounded-md shadow-sm border border-green-100 dark:border-green-800 flex justify-between items-start"
                 >
                   <p className="text-sm text-green-900 dark:text-green-100">
                     {comment.content}
                   </p>
+                  {comment.user_id === user.id && (
+                    <button
+                      onClick={() => handleDelete(comment.id)}
+                      className="text-red-600 text-xs ml-2 hover:underline"
+                    >
+                      Delete
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
+
 
 
 

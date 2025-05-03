@@ -29,6 +29,7 @@ class ClientController extends Controller
         }
     
         $client = $this->clientRepository->signUp($validatedData);
+        
         $token = $client->createToken('auth_token')->plainTextToken;
 
     

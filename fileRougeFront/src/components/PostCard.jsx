@@ -7,7 +7,7 @@ const PostCard = ({ post }) => {
   const [newComment, setNewComment] = useState(""); 
   const [comments, setComments] = useState(post.comments); 
   const [showFull, setShowFull] = useState(false);
-  const [voteStatus, setVoteStatus] = useState(0); // 0 = no vote, 1 = up, -1 = down
+  const [voteStatus, setVoteStatus] = useState(0);
   const [voteCount, setVoteCount] = useState(Number(post.vote_count));
 
   const handleLike = () => {
@@ -66,12 +66,10 @@ const PostCard = ({ post }) => {
   return (
     <div className="bg-white dark:bg-white rounded-lg shadow-md overflow-hidden border border-green-300 dark:border-green-400 mb-4 hover:shadow-lg transition-shadow duration-200">
       <div className="p-5">
-        {/* Title */}
         <h2 className="text-xl font-semibold text-green-700 dark:text-green-700 mb-3">
           {post.title}
         </h2>
 
-        {/* Content */}
         <div>
           <p className="text-gray-700 dark:text-gray-700">
             {showFull ? post.content : post.content.slice(0, 150) + (post.content.length > 150 ? "..." : "")}

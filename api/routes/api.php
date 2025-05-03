@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 USE App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\VoteController;
 /*
 |--------------------------------------------------------------------------
 | API Routes

@@ -23,9 +23,8 @@ class VoteController extends Controller
             'vote_type' => ['required', Rule::in([1, -1])],
         ]);
 
-        $userId = Auth::id();
+        $userId = 5;
 
-        // Optional: delete existing vote first to avoid duplicate
         $this->voteRepository->deleteVote($request->post_id, $userId);
 
         $vote = $this->voteRepository->insertVote([

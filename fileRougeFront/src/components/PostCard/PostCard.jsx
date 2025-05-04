@@ -35,6 +35,13 @@ const PostCard = ({ post }) => {
   const handleReport = () => {
     console.log("Reported!");
   }
+  const hanslingTester = () => {
+    e.preventDefault();
+
+    console.log("Test");
+    setIsCommenting(false);
+
+  }
 
   const handleCommentClick = () => {
     setIsCommenting(!isCommenting);
@@ -48,20 +55,38 @@ const PostCard = ({ post }) => {
     setNewComment(e.target.value);
   };
 
-  const handleCommentSubmit = (e) => {
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
-
-    if (newComment.trim()) {
-      const newCommentObj = {
-        id: comments.length + 1,
-        text: newComment,
-        user: "Current User",
-      };
-
-      setComments([...comments, newCommentObj]);
+  
+    if (!newComment.trim()) return;
+  
+    try {
+      const response = await fetch("http://localhost:8000/api/comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        },
+        body: JSON.stringify({
+          content: newComment,
+          post_id: post.id,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to post comment");
+      }
+  
+      const data = await response.json();
+  
+      setComments((prev) => [...prev, data]);
       setNewComment("");
+      setIsCommenting(false);
+    } catch (err) {
+      console.error("Error submitting comment:", err.message);
     }
   };
+  
 
   return (
     <div className="bg-white dark:bg-white rounded-lg shadow-md overflow-hidden border border-green-300 dark:border-green-400 mb-4 hover:shadow-lg transition-shadow duration-200">
@@ -139,7 +164,8 @@ const PostCard = ({ post }) => {
                   <p className="text-sm text-green-900 dark:text-green-100">
                     {comment.content}
                   </p>
-                  {comment.user_id === user.id && (
+
+                  {comment.owner_id === parseInt(localStorage.getItem("user_id")) && (
                     <button
                       onClick={() => handleDelete(comment.id)}
                       className="text-red-600 text-xs ml-2 hover:underline"
@@ -154,7 +180,8 @@ const PostCard = ({ post }) => {
 
 
 
-            <form onSubmit={handleCommentSubmit}>
+
+            <form onSubmit={hanslingTester}>
               <textarea
                 value={newComment}
                 onChange={handleCommentChange}

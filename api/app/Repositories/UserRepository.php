@@ -10,7 +10,7 @@ abstract class UserRepository implements UserRepositoryInterface
 {
     abstract public function signUp(array $data);
 
-    public static function login(array $credentials): ?User
+    public static function login(array $credentials)
     {
         if (!isset($credentials['email']) || !isset($credentials['password'])) {
             throw new InvalidArgumentException('Email and password are required.');

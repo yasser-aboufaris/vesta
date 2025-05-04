@@ -5,30 +5,40 @@ const VoteSection = ({ post }) => {
   const [voteStatus, setVoteStatus] = useState(0);
   const [voteCount, setVoteCount] = useState(Number(post.vote_count));
 
-  const handleLike = () => {
-    if (voteStatus === 1) {
+  const handleVote = async (type) => {
+    if (voteStatus === type) {
       setVoteStatus(0);
-      setVoteCount(voteCount - 1);
+      setVoteCount(voteCount - type);
     } else {
-      setVoteStatus(1);
-      setVoteCount(voteStatus === -1 ? voteCount + 2 : voteCount + 1);
+      setVoteStatus(type);
+      setVoteCount(voteCount + type - voteStatus);
     }
-  };
 
-  const handleDislike = () => {
-    if (voteStatus === -1) {
-      setVoteStatus(0);
-      setVoteCount(voteCount + 1);
-    } else {
-      setVoteStatus(-1);
-      setVoteCount(voteStatus === 1 ? voteCount - 2 : voteCount - 1);
+    try {
+      const res = await fetch("http://localhost:8000/api/votes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          post_id: post.id,
+          vote_type: type,
+        }),
+      });
+
+      if (!res.ok) throw new Error("Vote failed");
+
+      const data = await res.json();
+      console.log("Vote response:", data);
+    } catch (err) {
+      console.error("Error submitting vote:", err.message);
     }
   };
 
   return (
     <div className="flex items-center space-x-2">
       <button
-        onClick={handleLike}
+        onClick={() => handleVote(1)}
         className={`transition-colors duration-150 ${
           voteStatus === 1
             ? "text-green-600"
@@ -39,7 +49,7 @@ const VoteSection = ({ post }) => {
       </button>
       <span className="text-sm font-medium text-green-700">{voteCount}</span>
       <button
-        onClick={handleDislike}
+        onClick={() => handleVote(-1)}
         className={`transition-colors duration-150 ${
           voteStatus === -1
             ? "text-red-600"

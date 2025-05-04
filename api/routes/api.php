@@ -30,7 +30,7 @@ Route::post('/y', function () {
     ]);
 });
 Route::post('auth/signup/client', [ClientController::class,'signUp']);
-Route::get('auth/signup/client', [ClientController::class,'test']);
+// Route::get('auth/signup/client', [ClientController::class,'test']);
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::post('auth/logout', [AuthController::class, 'logout']);
 Route::post('auth/login', [AuthController::class, 'login']);

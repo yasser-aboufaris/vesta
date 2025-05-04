@@ -9,6 +9,7 @@ use App\Repositories\Interfaces\ClientRepositoryInterface;
 class ClientController extends Controller
 {
     private $clientReposistory;
+    
     public function __Construct(ClientRepositoryInterface $clientReposistory){
          $this->clientRepository = $clientReposistory;
     }

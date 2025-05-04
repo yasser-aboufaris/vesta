@@ -8,8 +8,6 @@ const CommentsSection = ({ post, isOpen, onClose }) => {
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-    if (!newComment.trim()) return;
-
     try {
       const res = await fetch("http://localhost:8000/api/comments", {
         method: "POST",
@@ -27,7 +25,6 @@ const CommentsSection = ({ post, isOpen, onClose }) => {
   };
 
   const handleDelete = async (commentId) => {
-    // call DELETE /comments/:id, then filter state
     setComments((prev) => prev.filter((c) => c.id !== commentId));
   };
 

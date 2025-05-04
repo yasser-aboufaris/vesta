@@ -10,7 +10,7 @@ use InvalidArgumentException;
 class ClientRepository extends UserRepository implements ClientRepositoryInterface
 {
 
-    public function signUp(array $data): string
+    public function signUp(array $data)
     {
         $user = User::create([
             'name' => $data['name'],
@@ -34,7 +34,7 @@ class ClientRepository extends UserRepository implements ClientRepositoryInterfa
     }
     
 
-    public function insertClientData(User $user, array $data): Client
+    public function insertClientData(User $user, array $data)
     {
         $requiredFields = ['age', 'weight', 'height'];
         foreach ($requiredFields as $field) {

@@ -12,25 +12,15 @@ import Home from './components/pages/Home'
 import './App.css'
 import SignUpFormClient from './components/forms/SignUpClient'
 // import Home from './components/pages/Home'
+import LoginForm from './components/forms/LoginForm'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-<div className="bg-gray-900 text-gray-300 min-h-screen">
-  {/* <CreatePostBar/>
-  <Nav />
-  <Feed />
-  <Footer /> */}
-  {/* <ProgramCard/>
-  <Footer /> */}
-  {/* <SignUpFormClient/> */}
-  {/* <Nav/>
-  <CreatePostBar/>
-  {/* <CreatePostForm/> */}
-<Feed/>  
-{/* <Home/> */}
-</div>
+
+
+<LoginForm/>
 
 
   )

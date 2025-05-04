@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import PostCard from "./PostCard"; 
+import PostCard from "./PostCard/PostCard"; 
 
 const Feed = () => {
   // console.log("Feed component rendered");

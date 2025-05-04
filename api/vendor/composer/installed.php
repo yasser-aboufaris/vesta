@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '58049ae97056e101b0d09f5b8555622a5d12259a',
+        'reference' => '8389a3966353aff172b9d2d4e641926a3fd6ff7c',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -382,7 +382,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '58049ae97056e101b0d09f5b8555622a5d12259a',
+            'reference' => '8389a3966353aff172b9d2d4e641926a3fd6ff7c',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 abstract class UserRepository implements UserRepositoryInterface
 {
-    abstract public function signUp(array $data): string;
+    abstract public function signUp(array $data);
 
     public static function login(array $credentials): ?User
     {
@@ -25,7 +25,7 @@ abstract class UserRepository implements UserRepositoryInterface
         return $user;
     }
 
-    protected static function hashPassword(string $password): string
+    protected static function hashPassword(string $password): User
     {
         return Hash::make($password);
     }

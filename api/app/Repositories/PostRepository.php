@@ -58,7 +58,7 @@ class PostRepository implements PostRepositoryInterface
     $posts = Post::all();
     foreach ($posts as $post) {
         $post->owner = $post->user()->first();
-        $post->vote_count = $post->votes()->count();
+        $post->vote_count = $post->votes()->sum('vote_type');
         $post->comments = $post->comments()->get();
         $post->tags = $post->tags()->get();
     }

@@ -22,13 +22,7 @@ class CommentRepository implements CommentRepositoryInterface
         }
         return false;
     }
-
-    public function find($id)
-    {
-        return Comment::find($id);
-    }
-
-        
+ 
     public function findByPostId($postId)
     {
         return Comment::where('post_id', $postId)->get();

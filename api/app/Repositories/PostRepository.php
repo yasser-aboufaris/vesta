@@ -36,7 +36,7 @@ class PostRepository implements PostRepositoryInterface
 
     public function create(array $data)
     {
-        $data['user_id'] = 3;
+        $data['user_id'] = 11;
     
         $tags = $data['tags'] ?? []; 
         
@@ -90,7 +90,7 @@ class PostRepository implements PostRepositoryInterface
     public function delete($id)
     {
         $post = $this->find($id);
-        dd($post->delete());
+        // dd($post->delete());
         
         return $post->delete();
     }

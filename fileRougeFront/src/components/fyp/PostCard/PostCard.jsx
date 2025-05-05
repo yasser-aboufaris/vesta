@@ -1,13 +1,53 @@
 import React, { useState } from "react";
-import { MessageSquare, Flag } from "lucide-react";
+import { MessageSquare, Flag, Edit2, Trash2 } from "lucide-react";
 import VoteSection from "./VoteSection";
 import CommentsSection from "./CommentsSection";
 
-const PostCard = ({ post, userVote }) => {
+const PostCard = ({ post, userVote , setRefreshKey , refreshKey}) => {
+
   const [showFull, setShowFull] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
 
-  const handleReport = () => console.log("Reported!");
+  let currentUser = null;
+  try {
+    currentUser = JSON.parse(localStorage.getItem("user"));
+  } catch (err) {
+    console.warn("No valid user in localStorage", err);
+  }
+  const currentUserId = currentUser?.id;
+
+  const authorId = post.user_id ?? post.owner?.id;
+
+  const handleDelete = async () => {
+    const token = localStorage.getItem("auth_token");
+    if (!token) {
+      console.error("No auth token found — can’t delete post.");
+      return;
+    }
+  
+    try {
+      const res = await fetch(
+        `http://127.0.0.1:8000/api/post/${post.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        }
+      );
+  
+      if (res.status === 204) {
+        console.log("Post deleted successfully (204).");
+        setRefreshKey(refreshKey + 1);
+        console.log(refreshKey);        
+      } else {
+        console.error("Delete failed with status:", res.status);
+      }
+    } catch (err) {
+      console.error("Network or server error:", err);
+    }
+  };
+  
 
   return (
     <div className="bg-white rounded-lg border border-green-300 mb-4 shadow-md">
@@ -31,8 +71,7 @@ const PostCard = ({ post, userVote }) => {
           </button>
         )}
 
-        {/* Tags */}
-        {post.tags && post.tags.length > 0 && (
+        {post.tags?.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
               <span
@@ -46,25 +85,31 @@ const PostCard = ({ post, userVote }) => {
         )}
       </div>
 
-      {/* Action bar */}
       <div className="flex items-center justify-between px-4 py-2 bg-green-50">
         <VoteSection post={post} userVote={userVote} />
 
-        <div className="flex gap-4 text-gray-500">
+        <div className="flex items-center gap-4">
           <button
             onClick={() => setIsCommenting(true)}
-            className="flex items-center gap-1 hover:text-green-600"
+            className="flex items-center gap-1 text-gray-500 hover:text-green-600"
           >
             <MessageSquare size={16} />
             <span className="text-sm">Comment</span>
           </button>
-          <button
-            onClick={handleReport}
-            className="flex items-center gap-1 hover:text-red-600"
-          >
-            <Flag size={16} />
-            <span className="text-sm">Report</span>
-          </button>
+
+
+          {currentUserId === authorId && (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleDelete}
+                className="flex items-center gap-1 text-gray-500 hover:text-blue-600"
+              >
+
+                <Trash2 size={16} />
+                <span className="text-sm">Delete</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import { Menu } from "lucide-react";
 
 const Nav = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
   return (
-    <nav className="top-0 py-4 px-8 flex items-center w-full justify-between bg-gray-50 text-green-900 shadow-md">
+    <nav className="top-0 py-4 px-6 flex items-center w-full justify-between bg-gray-50 text-green-900 shadow-md relative z-50">
       <div className="text-2xl font-extrabold tracking-wider">
         <a href="#" className="flex items-center hover:text-green-600 transition duration-300">
           <span className="mr-1">Vesta</span>
@@ -10,7 +15,7 @@ const Nav = () => {
         </a>
       </div>
 
-      <ul className="flex space-x-10 text-lg font-medium">
+      <ul className="hidden md:flex space-x-10 text-lg font-medium">
         <li>
           <a
             href="#"
@@ -44,6 +49,53 @@ const Nav = () => {
           </a>
         </li>
       </ul>
+
+      <button className="md:hidden" onClick={toggleMenu}>
+        <Menu size={28} />
+      </button>
+
+      {isOpen && (
+        <div className="absolute top-full left-0 w-full bg-white border-t border-green-200 shadow-md md:hidden">
+          <ul className="flex flex-col space-y-2 p-4 text-lg font-medium">
+            <li>
+              <a
+                href="#"
+                className="block hover:text-green-600 transition-all duration-200"
+                onClick={() => setIsOpen(false)}
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="block hover:text-green-600 transition-all duration-200"
+                onClick={() => setIsOpen(false)}
+              >
+                About
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="block hover:text-green-600 transition-all duration-200"
+                onClick={() => setIsOpen(false)}
+              >
+                Services
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="block hover:text-green-600 transition-all duration-200"
+                onClick={() => setIsOpen(false)}
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
+        </div>
+      )}
     </nav>
   );
 };

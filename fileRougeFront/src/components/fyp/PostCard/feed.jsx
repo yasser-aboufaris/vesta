@@ -6,6 +6,7 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [refreshKey,setRefreshKey] = useState(0);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -13,6 +14,7 @@ const Feed = () => {
         const res = await axios.get("http://127.0.0.1:8000/api/posts");
         console.log("Fetched posts:", res);
         setPosts(res.data.original);
+
       } catch (err) {
         console.error(err);
         setError("Failed to fetch posts.");
@@ -22,7 +24,7 @@ const Feed = () => {
     };
 
     fetchPosts();
-  }, []);
+  }, [refreshKey]);
 
   if (loading)
     return (
@@ -42,7 +44,7 @@ const Feed = () => {
     <div className="bg-gray-100 min-h-screen py-12 px-4">
       <div className="max-w-xl mx-auto flex flex-col gap-6">
         {posts.map((post) => (
-          <PostCard key={post.id} post={post} userVote={post.user_vote} />
+          <PostCard key={post.id} post={post} userVote={post.user_vote}  setRefreshKey={setRefreshKey} refreshKey={refreshKey}/>
         ))}
       </div>
     </div>

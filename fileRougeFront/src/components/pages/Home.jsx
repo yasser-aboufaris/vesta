@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Nav from '../nav.jsx';
 import PostForm from "../forms/PostingForm.jsx";
-import Feed from "../feed.jsx";
+import Feed from "../fyp/PostCard/feed.jsx";
 import LoginForm from "../forms/LoginForm.jsx";
 import SignUpFormClient from "../forms/SignUpClient.jsx";
 import Footer from '../footer.jsx';

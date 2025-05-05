@@ -9,20 +9,25 @@ const CommentsSection = ({ post, isOpen, onClose }) => {
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:8000/api/comments", {
+      const res = await fetch(`http://localhost:8000/api/post/${post.id}/comment`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: newComment, post_id: post.id }),
+        headers: {
+          "Content-Type": "application/json",
+
+        },
+        body: JSON.stringify({ content: newComment }),
       });
+
       if (!res.ok) throw new Error("Failed to post comment");
 
       const data = await res.json();
       setComments((prev) => [...prev, data]);
       setNewComment("");
     } catch (err) {
-      console.error(err.message);
+      console.error("Comment submission error:", err.message);
     }
   };
+
 
   const handleDelete = async (commentId) => {
     setComments((prev) => prev.filter((c) => c.id !== commentId));
@@ -74,6 +79,7 @@ const CommentsSection = ({ post, isOpen, onClose }) => {
             >
               Submit
             </button>
+
           </div>
         </form>
       </div>

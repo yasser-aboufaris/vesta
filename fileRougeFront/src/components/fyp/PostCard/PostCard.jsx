@@ -3,7 +3,7 @@ import { MessageSquare, Flag } from "lucide-react";
 import VoteSection from "./VoteSection";
 import CommentsSection from "./CommentsSection";
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, userVote }) => {
   const [showFull, setShowFull] = useState(false);
   const [isCommenting, setIsCommenting] = useState(false);
 
@@ -33,7 +33,7 @@ const PostCard = ({ post }) => {
 
       {/* Action bar */}
       <div className="flex items-center justify-between px-4 py-2 bg-green-50">
-        <VoteSection post={post} />
+        <VoteSection post={post} userVote={userVote} />
 
         <div className="flex gap-4 text-gray-500">
           <button

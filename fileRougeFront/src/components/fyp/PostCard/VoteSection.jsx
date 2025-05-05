@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 
-const VoteSection = ({ post }) => {
-  const [voteStatus, setVoteStatus] = useState(0);
+const VoteSection = ({ post, userVote }) => {
+  const [voteStatus, setVoteStatus] = useState(userVote ?? 0);
   const [voteCount, setVoteCount] = useState(Number(post.vote_count));
 
   const handleVote = async (type) => {

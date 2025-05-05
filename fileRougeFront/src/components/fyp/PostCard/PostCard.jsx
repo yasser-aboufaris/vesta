@@ -21,13 +21,28 @@ const PostCard = ({ post, userVote }) => {
             : post.content.slice(0, 150) +
               (post.content.length > 150 ? "…" : "")}
         </p>
+
         {!showFull && post.content.length > 150 && (
           <button
             onClick={() => setShowFull(true)}
-            className="mt-2 px-3 py-1 text-sm bg-green-500 text-white rounded"
+            className="mt-3 px-3 py-1 text-sm bg-green-500 text-white rounded"
           >
             Read More
           </button>
+        )}
+
+        {/* Tags */}
+        {post.tags && post.tags.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {post.tags.map((tag) => (
+              <span
+                key={tag.id}
+                className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full"
+              >
+                #{tag.name}
+              </span>
+            ))}
+          </div>
         )}
       </div>
 

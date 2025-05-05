@@ -11,16 +11,17 @@ import SignUpFormClient from './components/forms/SignUpClient'
 // import Home from './components/pages/Home'
 import LoginForm from './components/forms/LoginForm'
 import Fyp from './components/fyp/fyp'
+import Sidebar from './components/fyp/sideBar'
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
 
-     {/* <Fyp/> */}
-     <PostModal/>
+     <Fyp/>
+     {/* <PostModal/> */}
+     {/* <Sidebar/> */}
     </>
 
 

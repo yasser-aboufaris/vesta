@@ -7,7 +7,6 @@ function Footer() {
             <div className="container mx-auto px-6">
                 {/* Main footer content */}
                 <div className="flex flex-wrap justify-between">
-                    {/* Brand Section */}
                     <div className="w-full md:w-1/3 mb-8">
                         <h2 className="text-white text-2xl font-bold mb-3 flex items-center">
                             Vesta<span className="text-indigo-400">Fit</span>

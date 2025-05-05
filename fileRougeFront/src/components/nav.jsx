@@ -3,7 +3,6 @@ import React from "react";
 const Nav = () => {
   return (
     <nav className="top-0 py-4 px-8 flex items-center w-full justify-between bg-gray-50 text-green-900 shadow-md">
-      {/* Logo */}
       <div className="text-2xl font-extrabold tracking-wider">
         <a href="#" className="flex items-center hover:text-green-600 transition duration-300">
           <span className="mr-1">Vesta</span>
@@ -11,7 +10,6 @@ const Nav = () => {
         </a>
       </div>
 
-      {/* Navigation Links */}
       <ul className="flex space-x-10 text-lg font-medium">
         <li>
           <a

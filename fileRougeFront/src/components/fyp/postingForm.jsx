@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const PostForm = () => {
+const PostForm = ({ onClose }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
@@ -44,19 +44,23 @@ const PostForm = () => {
     try {
       setIsSubmitting(true);
       const postData = { title, content, tags: selectedTags };
-      
       await axios.post("http://127.0.0.1:8000/api/post", postData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("auth_token") || ""}`,
         }
       });
 
+      // Clear form and show success message
       setTitle("");
       setContent("");
       setSelectedTags([]);
       setSubmitSuccess(true);
-      setTimeout(() => setSubmitSuccess(false), 3000);
 
+      // Auto-close modal shortly after success
+      setTimeout(() => {
+        setSubmitSuccess(false);
+        onClose();
+      }, 1000);
     } catch (err) {
       console.error("Error submitting post:", err);
       setError("Failed to submit post. Please try again.");
@@ -67,7 +71,16 @@ const PostForm = () => {
 
   return (
     <div className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-50">
-      <div className="w-full max-w-sm bg-white rounded-lg shadow-md border border-green-200 text-sm">
+      <div className="relative w-full max-w-sm bg-white rounded-lg shadow-md border border-green-200 text-sm">
+        {/* Close button at top-right */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 p-1"
+        >
+          ✕
+        </button>
+
         <div className="p-4">
           <h2 className="text-lg font-bold text-green-700 mb-3 text-center">New Post</h2>
 
@@ -131,8 +144,7 @@ const PostForm = () => {
                           ${selectedTags.includes(tag.id)
                             ? 'bg-green-700 text-white'
                             : 'bg-green-100 text-green-800 hover:bg-green-200'}
-                          ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}
-                        `}
+                          ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                         onClick={() => !isSubmitting && handleTagToggle(tag.id)}
                       >
                         {tag.name}
@@ -143,18 +155,24 @@ const PostForm = () => {
               )}
             </div>
 
-            <div>
+            {/* Buttons: Cancel + Submit */}
+            <div className="flex justify-between mt-4">
+              <button
+                type="button"
+                onClick={onClose}
+                disabled={isSubmitting}
+                className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 text-gray-800"
+              >
+                Cancel
+              </button>
+
               <button
                 type="submit"
-                className={`
-                  w-full font-semibold py-2 px-3 rounded transition
-                  ${isSubmitting
-                    ? 'bg-green-300 cursor-not-allowed text-white'
-                    : 'bg-green-600 hover:bg-green-700 text-white'}
-                `}
                 disabled={isLoading || isSubmitting}
+                className={`px-4 py-2 font-semibold rounded text-white transition 
+                  ${isSubmitting ? 'bg-green-300 cursor-not-allowed' : 'bg-green-600 hover:bg-green-700'}`}
               >
-                {isSubmitting ? 'Posting...' : 'Post'}
+                {isSubmitting ? 'Posting…' : 'Post'}
               </button>
             </div>
           </form>

@@ -3,34 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\Interfaces\CommentRepostoryInsterface;
+use App\Models\Comment;
 
 class CommentController extends Controller
 {
-    protected $commentRepository;
-    public function __construct(CommentRepostoryInsterface $commentRepository)
-    {
-        $this->commentRepository = $commentRepository;
-    }
     public function index()
     {
-        $comments = $this->commentRepository->all();
+        $comments = Comment::all();
         return response()->json($comments);
     }
+
     public function show($id)
     {
-        $comment = $this->commentRepository->find($id);
+        $comment = Comment::findOrFail($id);
         return response()->json($comment);
     }
-    public function store(Request $request)
+
+    public function store(Request $request, $id)
     {
         $validatedData = $request->validate([
             'content' => 'required|string|max:255',
-            'post_id' => 'required|integer|exists:posts,id',
         ]);
-        // $validatedData['user_id'] = Auth()->id();
-        $validatedData['user_id'] = 5;
-        $comment = $this->commentRepository->create($validatedData);
+
+        $validatedData['post_id'] = $id;
+        $validatedData['owner_id'] = 5;
+        // dd($validatedData);
+
+        $comment = Comment::create($validatedData);
+
         return response()->json($comment, 201);
     }
 }

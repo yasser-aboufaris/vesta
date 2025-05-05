@@ -7,6 +7,7 @@ use App\Http\Controllers\ClientController;
 USE App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\VoteController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -39,6 +40,8 @@ Route::get('post/{id}', [PostController::class, 'show']);
 Route::post('post', [PostController::class, 'store']);
 Route::put('post/{id}', [PostController::class, 'update']);
 Route::delete('post/{id}', [PostController::class, 'destroy']);
+Route::post('post/{id}/comment', [CommentController::class, 'store']);
+
 Route::post('posts', [PostController::class, 'bulkStore']);
 Route::get('tags', [TagController::class, 'index']);
 Route::post('/votes', [VoteController::class, 'store']);

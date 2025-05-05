@@ -18,7 +18,7 @@ class ClientRepository extends UserRepository implements ClientRepositoryInterfa
             'password' => bcrypt($data['password']),
             'role_id' => 3,
         ]);
-    
+        
         $user->client()->create([
             'age' => $data['age'],
             'weight' => $data['weight'],

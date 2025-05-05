@@ -71,7 +71,7 @@ const PostForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-200 p-4">
+    <div className="fixed inset-0 flex justify-center items-center z-50 bg-black bg-opacity-50">
       <div className="w-full max-w-md bg-gray-100 rounded-xl shadow-lg overflow-hidden border border-gray-300">
         <div className="p-6">
           <h2 className="text-2xl font-bold text-black mb-6 text-center">Create New Post</h2>

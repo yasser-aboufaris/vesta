@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { PlusCircle, Flame, Star, Menu, Compass } from "lucide-react";
+import PostModal from "./postingForm"; // adjust path if needed
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showPostModal, setShowPostModal] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
   const navItems = [
-    { icon: Compass, label: "FYP" },
-    { icon: Flame, label: "Tendance" },
-    { icon: Star, label: "Favorites" },
-    { icon: PlusCircle, label: "Create Post" },
+    { icon: Compass, label: "FYP", action: () => {} },
+    { icon: Flame, label: "Tendance", action: () => {} },
+    { icon: Star, label: "Favorites", action: () => {} },
+    {
+      icon: PlusCircle,
+      label: "Create Post",
+      action: () => setShowPostModal(true),
+    },
   ];
 
   return (
@@ -42,7 +48,10 @@ const Sidebar = () => {
                 <li key={index}>
                   <button
                     className="w-full text-left flex items-center px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-700"
-                    onClick={() => setIsOpen(false)} // Just closes sidebar
+                    onClick={() => {
+                      item.action();
+                      setIsOpen(false);
+                    }}
                   >
                     <Icon size={18} className="mr-3" />
                     <span>{item.label}</span>
@@ -53,6 +62,8 @@ const Sidebar = () => {
           </ul>
         </nav>
       </div>
+
+      {showPostModal && <PostModal onClose={() => setShowPostModal(false)} />}
     </>
   );
 };

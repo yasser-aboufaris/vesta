@@ -24,4 +24,8 @@ class VoteRepository implements VoteRepositoryInterface
     {
         return Vote::destroy($id);
     }
+    public function getVotesPerUser(int $userId)
+    {
+        return Vote::where('user_id', $userId)->get();
+    }
 }

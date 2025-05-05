@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Repositories\Interfaces\PostRepositoryInterface;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+
 use Illuminate\Http\Request;
 use App\Models\Post;
 
@@ -54,17 +55,25 @@ class PostRepository implements PostRepositoryInterface
     
 
     public function getPostsFull()
-{
-    $posts = Post::all();
-    foreach ($posts as $post) {
-        $post->owner = $post->user()->first();
-        $post->vote_count = $post->votes()->sum('vote_type');
-        $post->comments = $post->comments()->get();
-        $post->tags = $post->tags()->get();
+    {
+        $userId = 5;
+    
+        $posts = Post::all();
+    
+        foreach ($posts as $post) {
+            $post->owner = $post->user()->first();
+            $post->vote_count = $post->votes()->sum('vote_type');
+            $post->comments = $post->comments()->get();
+            $post->tags = $post->tags()->get();
+    
+            $userVote = $post->votes()->where('user_id', $userId)->first();
+            $post->user_vote = $userVote?->vote_type ?? 0;
+        }
+    
+        return response()->json($posts);
     }
-
-    return $posts;
-}
+    
+    
     
 
     public function update($id, array $data)

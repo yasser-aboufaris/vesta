@@ -1,34 +1,22 @@
-import { useState } from 'react'
-import PostModal from './components/fyp/postingForm'
-import Feed from './components/fyp/PostCard/feed'
-import Nav from './components/nav'
-import CreatePostForm from './components/forms/PostingForm'
-import CreatePostBar from './components/buttons/showPostingForm'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Fyp from './components/fyp/fyp';
+import Home from './components/pages/Home';
+import LoginForm from './components/forms/LoginForm';
+import SignUpFormClient from './components/forms/SignUpClient';
+import Sidebar from './components/fyp/sideBar';
 
-import Home from './components/pages/Home'
-import './App.css'
-import SignUpFormClient from './components/forms/SignUpClient'
-// import Home from './components/pages/Home'
-import LoginForm from './components/forms/LoginForm'
-import Fyp from './components/fyp/fyp'
-import Sidebar from './components/fyp/sideBar'
-
+import './App.css';
 
 function App() {
-
   return (
-    <>
-
-     <Fyp/>
-     {/* <PostModal/> */}
-     {/* <Sidebar/> */}
-    </>
-
-
-
-
-
-  )
+    <Router>
+      <Routes>
+        <Route path="/fyp" element={<Fyp />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/signup" element={<SignUpFormClient />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

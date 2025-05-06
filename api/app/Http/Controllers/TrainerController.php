@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Repositories\Interfaces\TrainerRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Repositories\TrainerRepository;
 
 class TrainerController extends Controller
 {
     protected TrainerRepositoryInterface $trainerRepository;
 
-    public function __construct(TrainerRepositoryInterface $trainerRepository)
+    public function __construct(TrainerRepository $trainerRepository)
     {
         $this->trainerRepository = $trainerRepository;
     }
@@ -24,7 +25,7 @@ class TrainerController extends Controller
             'password'      => 'required|string|min:6',
             'speciality_id' => 'required|exists:specialities,id',
         ]);
-
+                                   
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }

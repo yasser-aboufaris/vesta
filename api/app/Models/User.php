@@ -60,4 +60,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function trainerSpeciality()
+    {
+        return $this->hasOne(Trainer::class)->with('speciality');
+    }
+    
 }

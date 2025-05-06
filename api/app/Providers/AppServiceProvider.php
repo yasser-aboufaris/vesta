@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PostRepositoryInterface::class, PostRepository::class);
         $this->app->bind(CommentRepostoryInterface::class, CommentRepository::class);
         $this->app->bind(VoteRepositoryInterface::class, VoteRepository::class);
+        $this->app->bind(TrainerRepositoryInterface::class, TrainerRepository::class);
     }
 
     /**

@@ -8,6 +8,7 @@ USE App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\TrainerController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -47,3 +48,4 @@ Route::get('tags', [TagController::class, 'index']);
 Route::post('/votes', [VoteController::class, 'store']);
 Route::delete('/votes', [VoteController::class, 'destroy']);
 Route::post('/comments', [CommentController::class, 'store']);
+Route::post('/trainer/signup', [TrainerController::class, 'signUp']);

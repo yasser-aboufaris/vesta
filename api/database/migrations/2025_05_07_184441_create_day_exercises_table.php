@@ -13,6 +13,20 @@ return new class extends Migration
     {
         Schema::create('day_exercises', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('day_id');
+            $table->unsignedBigInteger('exercise_id');
+
+            $table->foreign('day_id')
+                  ->references('id')
+                  ->on('days')
+                  ->onDelete('cascade');
+
+            $table->foreign('exercise_id')
+                  ->references('id')
+                  ->on('exrcices')
+                  ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -25,3 +39,4 @@ return new class extends Migration
         Schema::dropIfExists('day_exercises');
     }
 };
+

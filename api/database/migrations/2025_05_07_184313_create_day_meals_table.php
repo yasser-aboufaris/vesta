@@ -10,11 +10,18 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    {  
         Schema::create('day_meals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('program_day_id')->constrained()->onDelete('cascade');
-            $table->foreignId('meal_id')->constrained()->onDelete('cascade');
+
+            // Declare foreign key columns manually
+            $table->unsignedBigInteger('day_id');
+            $table->unsignedBigInteger('meal_id');
+
+            // Foreign key constraints
+            $table->foreign('day_id')->references('id')->on('days')->onDelete('cascade');
+            $table->foreign('meal_id')->references('id')->on('meals')->onDelete('cascade');
+
             $table->unsignedInteger('grams'); 
             $table->timestamps();
         });

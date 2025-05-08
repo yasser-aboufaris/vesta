@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const [successData, setSuccessData] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) =>
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleLogin = async () => {
     setError("");
@@ -22,13 +23,12 @@ function LoginForm() {
         "http://127.0.0.1:8000/api/auth/login",
         form
       );
-      console.log("Login response:", data);
       const { token, user } = data;
 
       localStorage.setItem("auth_token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      setSuccessData({ token, user });
+      navigate("/fyp");
     } catch (err) {
       console.error("Login failed:", err.response?.data || err.message);
       setError("Login failed. Check your credentials and try again.");
@@ -41,12 +41,6 @@ function LoginForm() {
         <h2 className="text-2xl font-bold mb-6 text-center text-green-700">
           Log In to Your Account
         </h2>
-
-        {successData && (
-          <div className="mb-4 p-3 bg-green-100 text-green-800 rounded">
-            Login successful! Welcome, {successData.user.name}.
-          </div>
-        )}
 
         {error && (
           <div className="mb-4 p-3 bg-red-100 text-red-800 rounded">

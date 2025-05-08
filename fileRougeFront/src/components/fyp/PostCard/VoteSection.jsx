@@ -6,12 +6,20 @@ const VoteSection = ({ post, userVote }) => {
   const [voteCount, setVoteCount] = useState(Number(post.vote_count));
 
   const handleVote = async (type) => {
+    // Update UI optimistically
     if (voteStatus === type) {
       setVoteStatus(0);
       setVoteCount(voteCount - type);
     } else {
-      setVoteStatus(type);
       setVoteCount(voteCount + type - voteStatus);
+      setVoteStatus(type);
+    }
+
+    // Retrieve token
+    const token = localStorage.getItem("auth_token");
+    if (!token) {
+      console.error("No auth token found—cannot submit vote.");
+      return;
     }
 
     try {
@@ -19,6 +27,7 @@ const VoteSection = ({ post, userVote }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           post_id: post.id,
@@ -26,12 +35,13 @@ const VoteSection = ({ post, userVote }) => {
         }),
       });
 
-      if (!res.ok) throw new Error("Vote failed");
+      if (!res.ok) throw new Error(`Vote failed: ${res.status}`);
 
       const data = await res.json();
       console.log("Vote response:", data);
     } catch (err) {
       console.error("Error submitting vote:", err.message);
+      // Optionally, roll back optimistic update here
     }
   };
 

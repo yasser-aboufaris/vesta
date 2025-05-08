@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -26,7 +27,7 @@ class CommentController extends Controller
         ]);
 
         $validatedData['post_id'] = $id;
-        $validatedData['owner_id'] = 5;
+        $validatedData['owner_id'] = Auth::id();
         // dd($validatedData);
 
         $comment = Comment::create($validatedData);

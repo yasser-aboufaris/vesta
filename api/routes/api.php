@@ -4,48 +4,56 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
-USE App\Http\Controllers\PostController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TrainerController;
+
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| Public Routes (No Auth Required)
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::post('/y', function () {
-    return response()->json([
-        'products' => [
-            ['id' => 1, 'name' => 'Product 1', 'price' => 100],
-            ['id' => 2, 'name' => 'Product 2', 'price' => 200],
-        ]
-    ]);
-});
 Route::post('auth/signup/client', [ClientController::class,'signUp']);
-// Route::get('auth/signup/client', [ClientController::class,'test']);
 Route::post('auth/login', [AuthController::class, 'login']);
-Route::post('auth/logout', [AuthController::class, 'logout']);
-Route::post('auth/login', [AuthController::class, 'login']);
-Route::get('posts', [PostController::class, 'index']);
-Route::get('post/{id}', [PostController::class, 'show']);
-Route::post('post', [PostController::class, 'store']);
-Route::put('post/{id}', [PostController::class, 'update']);
-Route::delete('post/{id}', [PostController::class, 'destroy']);
-Route::post('post/{id}/comment', [CommentController::class, 'store']);
-
-Route::post('posts', [PostController::class, 'bulkStore']);
-Route::get('tags', [TagController::class, 'index']);
-Route::post('/votes', [VoteController::class, 'store']);
-Route::delete('/votes', [VoteController::class, 'destroy']);
-Route::post('/comments', [CommentController::class, 'store']);
 Route::post('/trainer/signup', [TrainerController::class, 'signUp']);
+
+/*
+|--------------------------------------------------------------------------
+| Protected Routes (Require Sanctum Auth)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::post('/y', function () {
+        return response()->json([
+            'products' => [
+                ['id' => 1, 'name' => 'Product 1', 'price' => 100],
+                ['id' => 2, 'name' => 'Product 2', 'price' => 200],
+            ]
+        ]);
+    });
+
+    Route::post('auth/logout', [AuthController::class, 'logout']);
+
+    Route::get('posts', [PostController::class, 'index']);
+    Route::get('post/{id}', [PostController::class, 'show']);
+    Route::post('post', [PostController::class, 'store']);
+    Route::put('post/{id}', [PostController::class, 'update']);
+    Route::delete('post/{id}', [PostController::class, 'destroy']);
+    Route::post('posts', [PostController::class, 'bulkStore']);
+
+    Route::post('post/{id}/comment', [CommentController::class, 'store']);
+    Route::post('/comments', [CommentController::class, 'store']);
+
+    Route::get('tags', [TagController::class, 'index']);
+
+    Route::post('/votes', [VoteController::class, 'store']);
+    Route::delete('/votes', [VoteController::class, 'destroy']);
+});

@@ -14,8 +14,10 @@ class PostController extends Controller
 
     public function index()
     {
+        // dd($this->postRepository);
         $posts = $this->postRepository->getPostsFull();
-        return response()->json($posts);
+        // dd($posts);
+        return $posts;
     }
 
     public function show($id)
@@ -59,15 +61,16 @@ class PostController extends Controller
 
     public function bulkStore(Request $request)
     {
-        // dd($request->all());
         $data = $request->validate([
             'posts' => 'required|array',
             'posts.*.title' => 'required|string|max:255',
             'posts.*.content' => 'required|string',
             'posts.*.tags' => 'array',
+            
+
             'posts.*.tags.*' => 'integer',
         ]);
-        // dd($data);
+
     
         $createdPosts = [];
     
@@ -77,6 +80,12 @@ class PostController extends Controller
     
         return response()->json($createdPosts, 201);
     }
+
+    public function getPostsFull()
+    {
+        $posts = $this->postRepository->getPostsFull();
+        return response()->json($posts);
+    } 
 
 
 

@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Repositories\Interfaces\PostRepositoryInterface;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
@@ -36,7 +37,7 @@ class PostRepository implements PostRepositoryInterface
 
     public function create(array $data)
     {
-        $data['user_id'] = 11;
+        $data['user_id'] = Auth::id();
     
         $tags = $data['tags'] ?? []; 
         
@@ -56,7 +57,7 @@ class PostRepository implements PostRepositoryInterface
 
     public function getPostsFull()
     {
-        $userId = 5;
+        $userId = Auth::id();
     
         $posts = Post::all();
     
@@ -69,8 +70,9 @@ class PostRepository implements PostRepositoryInterface
             $userVote = $post->votes()->where('user_id', $userId)->first();
             $post->user_vote = $userVote?->vote_type ?? 0;
         }
+        
     
-        return response()->json($posts);
+        return $posts;
     }
     
     
@@ -90,7 +92,6 @@ class PostRepository implements PostRepositoryInterface
     public function delete($id)
     {
         $post = $this->find($id);
-        // dd($post->delete());
         
         return $post->delete();
     }

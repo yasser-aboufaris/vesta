@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\VoteRepositoryInterface;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\VoteRepository;
 
 class VoteController extends Controller
@@ -23,7 +24,7 @@ class VoteController extends Controller
             'vote_type' => ['required', Rule::in([1, -1])],
         ]);
 
-        $userId = 5;
+        $userId = Auth::id();
 
         $vote = $this->voteRepository->insertVote([
             'user_id' => $userId,
@@ -35,7 +36,7 @@ class VoteController extends Controller
     }
     public function destroy($post_id)
     {   
-        $user_id = 5;
+        $user_id = Auth::id();
         $this->voteRepository->deleteVote($post_id, $user_id);
         return response()->json(['message' => 'Vote deleted successfully.'], 200);
     }

@@ -1,37 +1,32 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
-    {  
-        Schema::create('day_meals', function (Blueprint $table) {
+    {
+        Schema::create('day_meals', function (Blueprint $table) {   // singular-singular is Eloquent’s default
             $table->id();
 
-            // Declare foreign key columns manually
-            $table->unsignedBigInteger('day_id');
-            $table->unsignedBigInteger('meal_id');
+            $table->foreignId('day_id')
+                  ->constrained()
+                  ->cascadeOnDelete();
 
-            // Foreign key constraints
-            $table->foreign('day_id')->references('id')->on('days')->onDelete('cascade');
-            $table->foreign('meal_id')->references('id')->on('meals')->onDelete('cascade');
+            $table->foreignId('meal_id')
+                  ->constrained()
+                  ->cascadeOnDelete();
 
-            $table->unsignedInteger('grams'); 
+            $table->unsignedInteger('grams');
             $table->timestamps();
+
+            $table->unique(['day_id', 'meal_id']);  // optional but useful
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('day_meals');
+        Schema::dropIfExists('day_meals');          // ✅ matches the name in up()
     }
 };

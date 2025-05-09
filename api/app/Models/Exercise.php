@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Exercise extends Model
 {
-    protected $table = 'exrcices';
+    protected $table = 'exercises'; // <-- explicitly define correct table name if necessary
+
     protected $fillable = ['name', 'description'];
 
     public function dayExercises(): HasMany

@@ -9,6 +9,8 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\VoteController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TrainerController;
+use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\MealController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +55,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/comments', [CommentController::class, 'store']);
 
     Route::get('tags', [TagController::class, 'index']);
+    Route::get('/programs', [ProgramController::class, 'index']);
+    Route::post('/programs', [ProgramController::class, 'store']);
+    Route::get('/programs/{id}', [ProgramController::class, 'show']);
+    Route::put('/programs/{id}', [ProgramController::class, 'update']);
+    Route::delete('/programs/{id}', [ProgramController::class, 'destroy']);
 
     Route::post('/votes', [VoteController::class, 'store']);
     Route::delete('/votes', [VoteController::class, 'destroy']);
+    Route::get('/meals', [MealController::class, 'index']);
+    Route::delete('/meals/{id}', [MealController::class, 'delete']);
+    Route::post('/meals', [MealController::class, 'store']);
 });

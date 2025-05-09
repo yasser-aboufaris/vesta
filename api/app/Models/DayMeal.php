@@ -7,15 +7,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DayMeal extends Model
 {
-    protected $fillable = ['program_day_id', 'meal_id', 'grams'];
+    protected $fillable = ['day_id', 'meal_id', 'grams'];
 
-    public function day(): BelongsTo
+    public function day()
     {
-        return $this->belongsTo(Day::class, 'program_day_id');
+        return $this->belongsTo(Day::class, 'day_id');
     }
-
-    public function meal(): BelongsTo
+    
+    public function meal()
     {
-        return $this->belongsTo(Meal::class);
+        return $this->belongsTo(Meal::class, 'meal_id');
     }
+    
 }

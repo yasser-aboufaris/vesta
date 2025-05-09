@@ -10,17 +10,17 @@ class Day extends Model
 {
     protected $fillable = ['program_id', 'day_number'];
 
-    public function program(): BelongsTo
+    public function program()
     {
         return $this->belongsTo(Program::class);
     }
 
-    public function meals(): HasMany
+    public function meals()
     {
-        return $this->hasMany(DayMeal::class, 'program_day_id');
+        return $this->hasMany(DayMeal::class, 'day_id');
     }
 
-    public function exercises(): HasMany
+    public function exercises()
     {
         return $this->hasMany(DayExercise::class, 'program_day_id');
     }

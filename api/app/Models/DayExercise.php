@@ -16,6 +16,6 @@ class DayExercise extends Model
 
     public function exercise(): BelongsTo
     {
-        return $this->belongsTo(Exercise::class);
+        return $this->hasMany(Exercise::class);
     }
 }

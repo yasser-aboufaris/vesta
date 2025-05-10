@@ -9,6 +9,7 @@ class ExerciseController extends Controller
     public function index()
     {
         $exercises = Exercise::all();
+        dd($exercises);
         return response()->json($exercises);
     }
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\MealController;
+use App\Http\Controllers\ExerciseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('post/{id}/comment', [CommentController::class, 'store']);
     Route::post('/comments', [CommentController::class, 'store']);
 
+
     Route::get('tags', [TagController::class, 'index']);
     Route::get('/programs', [ProgramController::class, 'index']);
     Route::post('/programs', [ProgramController::class, 'store']);
@@ -68,3 +70,4 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::get('/meals', [MealController::class, 'index']);
+Route::get('/exercises', [ExerciseController::class, 'index']);

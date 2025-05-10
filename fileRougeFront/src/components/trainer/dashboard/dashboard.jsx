@@ -4,7 +4,7 @@ import { Menu, X } from 'lucide-react';
 // Import components
 import Sidebar from './comp/sideBar';
 import MealsDashboard from './meals/dashboardMeals';
-// import ExercisesDashboard from './exercises/dashboardExercises';
+import ExercisesDashboard from './exercises/ExercisesDashboard';
 
 // Placeholder components for other tabs
 const Home = () => (
@@ -43,8 +43,8 @@ const App = () => {
         return <Programs />;
       case 'meals':
         return <MealsDashboard />;
-    //   case 'exercises':
-    //     return <ExercisesDashboard />;
+      case 'exercises':
+        return <ExercisesDashboard />;
       default:
         return <Home />;
     }

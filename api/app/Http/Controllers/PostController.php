@@ -16,7 +16,6 @@ class PostController extends Controller
     {
         // dd($this->postRepository);
         $posts = $this->postRepository->getPostsFull();
-        // dd($posts);
         return $posts;
     }
 

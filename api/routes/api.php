@@ -63,7 +63,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/votes', [VoteController::class, 'store']);
     Route::delete('/votes', [VoteController::class, 'destroy']);
-    Route::get('/meals', [MealController::class, 'index']);
-    Route::delete('/meals/{id}', [MealController::class, 'delete']);
     Route::post('/meal', [MealController::class, 'store']);
+    Route::delete('/meal/{id}', [MealController::class, 'delete']);
 });
+
+Route::get('/meals', [MealController::class, 'index']);

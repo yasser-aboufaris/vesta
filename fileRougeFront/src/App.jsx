@@ -4,6 +4,7 @@ import Home from './components/pages/Home';
 import LoginForm from './components/forms/LoginForm';
 import SignUpFormClient from './components/forms/SignUpClient';
 import Sidebar from './components/fyp/sideBar';
+import DashboardMeal from './components/trainer/dashboard/meals/dashboardMeals';
 
 import './App.css';
 
@@ -15,7 +16,7 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup/client" element={<SignUpFormClient />} />
         <Route path="/signup/trainer" element={<Home />} />
-        <Route path="/admin/meals" element={<d />} />
+        <Route path="/admin/meals" element={<DashboardMeal />} />
       </Routes>
     </Router>
   );

@@ -13,7 +13,9 @@ function App() {
       <Routes>
         <Route path="/fyp" element={<Fyp />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/signup" element={<SignUpFormClient />} />
+        <Route path="/signup/client" element={<SignUpFormClient />} />
+        <Route path="/signup/trainer" element={<Home />} />
+        <Route path="/admin/meals" element={<d />} />
       </Routes>
     </Router>
   );

@@ -33,13 +33,16 @@ class MealController extends Controller
             'name' => 'required|string|max:255',
             'calories_per_100g' => 'required|numeric|min:0',
         ]);
+    
         $existingMeal = Meal::where('name', $request->name)->get();
+    
         if ($existingMeal) {
             return response()->json(['message' => 'Meal already exists'], 409);
         }
-
+    
         $meal = Meal::create($request->all());
-
+    
         return response()->json($meal, 201);
     }
+    
 }

@@ -11,10 +11,18 @@ class ProgramController extends Controller
 {
     public function index()
     {
-        $userId = Auth::id();
-        $programs = Program::where('user_id', $userId)->with('days')->get();
+        $programs = Program::with([
+            'days.meals' => function ($query) {
+                $query->select('meals.id', 'name', 'calories_per_100g');
+            },
+            'days.exercises' => function ($query) {
+                $query->select('exercises.id', 'name', 'description');
+            }
+        ])->get();
+    
         return response()->json($programs);
     }
+    
     public function test(){
         return response()->json([
             'products' => [
@@ -28,14 +36,20 @@ class ProgramController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'days' => 'required|array',
-            'days.*.day_number' => 'required|integer|min:1',
-            'days.*.meals' => 'array',
+            
+            'days' => 'required|array|min:7|max:7', 
+            
+            'days.*.day_number' => 'required|integer|min:1|max:7',
+        
+            'days.*.meals' => 'required|array|min:1',
             'days.*.meals.*.meal_id' => 'required|exists:meals,id',
             'days.*.meals.*.grams' => 'required|integer|min:1',
-            'days.*.exercises' => 'array',
-            'days.*.exercises.*.exercise_id' => 'required|exists:exrcices,id',
+        
+            'days.*.exercises' => 'required|array|min:1',
+            'days.*.exercises.*.exercise_id' => 'required|exists:exercises,id',
+            'days.*.exercises.*.repetitions' => 'required|integer|min:1',
         ]);
+        
 
         $program = Program::create([
             'name' => $request->name,
@@ -49,17 +63,19 @@ class ProgramController extends Controller
             ]);
 
             if (isset($dayData['meals'])) {
-                dd($dayData['meals']);
+
                 foreach ($dayData['meals'] as $meal) {
                     $day->meals()->attach($meal['meal_id'], ['grams' => $meal['grams']]);
                 }
             }
-            dd($dayData['exercises']);
 
             if (isset($dayData['exercises'])) {
                 foreach ($dayData['exercises'] as $exercise) {
-                    $day->exercises()->attach($exercise['exercise_id']);
+                    $day->exercises()->attach($exercise['exercise_id'], [
+                        'repetitions' => $exercise['repetitions']
+                    ]);
                 }
+                
             }
         }
 

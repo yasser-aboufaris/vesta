@@ -11,6 +11,6 @@ class Program extends Model
     protected $fillable = ['name','user_id'];
 
 
-    public function days(): HasMany { return $this->hasMany(Day::class); }
+    public function days() { return $this->hasMany(Day::class); }
 
 }

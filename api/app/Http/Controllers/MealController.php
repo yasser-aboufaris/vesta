@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Meal;
 
@@ -44,5 +45,42 @@ class MealController extends Controller
     
         return response()->json($meal, 201);
     }
+
+
+public function mealsStats()
+{
+    $bestCuttingMeal = Meal::orderBy('calories_per_100g', 'asc')->first();
+
+    $bestBulkingMeal = Meal::orderBy('calories_per_100g', 'desc')->first();
+
+    $mostUsedMeal = DB::table('day_meal')
+        ->join('meals', 'day_meal.meal_id', '=', 'meals.id')
+        ->select('meals.id', 'meals.name', 'meals.calories_per_100g', DB::raw('COUNT(*) as usage_count'))
+        ->groupBy('meals.id', 'meals.name', 'meals.calories_per_100g')
+        ->orderByDesc('usage_count')
+        ->first();
+
+    return response()->json([
+        'best_cutting_meal' => $bestCuttingMeal ? [
+            'id' => $bestCuttingMeal->id,
+            'name' => $bestCuttingMeal->name,
+            'calories_per_100g' => $bestCuttingMeal->calories_per_100g,
+        ] : null,
+
+        'best_bulking_meal' => $bestBulkingMeal ? [
+            'id' => $bestBulkingMeal->id,
+            'name' => $bestBulkingMeal->name,
+            'calories_per_100g' => $bestBulkingMeal->calories_per_100g,
+        ] : null,
+
+        'most_used_meal' => $mostUsedMeal ? [
+            'id' => $mostUsedMeal->id,
+            'name' => $mostUsedMeal->name,
+            'calories_per_100g' => $mostUsedMeal->calories_per_100g,
+            'used_in_days' => $mostUsedMeal->usage_count,
+        ] : null,
+    ]);
+}
+
     
 }

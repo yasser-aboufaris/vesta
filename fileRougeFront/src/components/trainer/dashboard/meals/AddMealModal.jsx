@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import axios from 'axios';
 
 const AddMealModal = ({ isOpen, onClose, onAddMeal }) => {
   const [name, setName] = useState('');
@@ -7,29 +8,39 @@ const AddMealModal = ({ isOpen, onClose, onAddMeal }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+
   const handleSubmit = async () => {
     setError('');
-    
+  
     if (!name || !caloriesPer100g) {
       setError('All fields are required');
       return;
     }
-    
+  
     try {
       setLoading(true);
-      await onAddMeal({
+      const token = '5|hhpPmQsRarh1yw7zzgEJwoVV21I02YT6ShONA4x9c4214529';
+  
+      await axios.post('http://127.0.0.1:8000/api/meal', {
         name,
         calories_per_100g: parseFloat(caloriesPer100g)
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
+  
       setName('');
       setCaloriesPer100g('');
       onClose();
     } catch (err) {
-      setError(err.message || 'Failed to add meal');
+      console.error(err);
+      setError(err.response?.data?.message || 'Failed to add meal');
     } finally {
       setLoading(false);
     }
   };
+  
 
   if (!isOpen) return null;
   

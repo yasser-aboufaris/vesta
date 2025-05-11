@@ -35,7 +35,7 @@ class MealController extends Controller
             'calories_per_100g' => 'required|numeric|min:0',
         ]);
     
-        $existingMeal = Meal::where('name', $request->name)->get();
+        $existingMeal = Meal::where('name', $request->name)->first();
     
         if ($existingMeal) {
             return response()->json(['message' => 'Meal already exists'], 409);

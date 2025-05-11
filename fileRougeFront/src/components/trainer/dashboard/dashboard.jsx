@@ -35,8 +35,6 @@ const App = () => {
   // Function to render the active dashboard
   const renderDashboard = () => {
     switch (activeTab) {
-      case 'home':
-        return <Home />;
       case 'posts':
         return <Posts />;
       case 'programs':
@@ -46,13 +44,12 @@ const App = () => {
       case 'exercises':
         return <ExercisesDashboard />;
       default:
-        return <Home />;
+        return <Posts />;
     }
   };
 
   return (
     <div className="flex flex-col h-screen bg-gray-50">
-      {/* Mobile header */}
       <header className="bg-white shadow-sm py-4 px-6 flex justify-between items-center md:hidden">
         <h1 className="text-lg font-semibold text-green-600">Nutrition Dashboard</h1>
         <button 
@@ -64,12 +61,10 @@ const App = () => {
       </header>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
         <Sidebar 
           activeTab={activeTab} 
           setActiveTab={(tab) => {
             setActiveTab(tab);
-            // Close sidebar on mobile after selection
             if (window.innerWidth < 768) {
               setSidebarOpen(false);
             }
@@ -77,7 +72,6 @@ const App = () => {
           sidebarOpen={sidebarOpen} 
         />
         
-        {/* Overlay for mobile sidebar */}
         {sidebarOpen && (
           <div 
             className="fixed inset-0 bg-black bg-opacity-50 z-0 md:hidden"
@@ -85,7 +79,6 @@ const App = () => {
           />
         )}
 
-        {/* Main content area */}
         <main className="flex-1 overflow-auto p-6">
           {renderDashboard()}
         </main>

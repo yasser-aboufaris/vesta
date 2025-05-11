@@ -47,7 +47,7 @@ const AddExerciseModal = ({ isOpen, onClose, onAddExercise }) => {
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-blue-800">Add New Exercise</h2>
+          <h2 className="text-xl font-bold text-green-800">Add New Exercise</h2>
           <button onClick={handleClose} className="text-gray-500 hover:text-gray-700">
             <X size={20} />
           </button>
@@ -61,11 +61,11 @@ const AddExerciseModal = ({ isOpen, onClose, onAddExercise }) => {
         
         <div>
           <div className="mb-4">
-            <label className="block text-blue-700 text-sm font-bold mb-2" htmlFor="name-input">
+            <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="name-input">
               Exercise Name *
             </label>
             <input
-              className="shadow appearance-none border border-blue-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+              className="shadow appearance-none border border-green-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-green-500"
               id="name-input"
               type="text"
               placeholder="E.g., Push-ups"
@@ -75,11 +75,11 @@ const AddExerciseModal = ({ isOpen, onClose, onAddExercise }) => {
           </div>
           
           <div className="mb-4">
-            <label className="block text-blue-700 text-sm font-bold mb-2" htmlFor="description-input">
+            <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="description-input">
               Description <span className="font-normal text-gray-500">(optional)</span>
             </label>
             <textarea
-              className="shadow appearance-none border border-blue-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500"
+              className="shadow appearance-none border border-green-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-green-500"
               id="description-input"
               rows="4"
               placeholder="E.g., Perform with hands shoulder-width apart and maintain proper form..."
@@ -90,7 +90,7 @@ const AddExerciseModal = ({ isOpen, onClose, onAddExercise }) => {
           
           <div className="flex items-center justify-end">
             <button
-              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
               type="button"
               onClick={handleSubmit}
               disabled={loading}

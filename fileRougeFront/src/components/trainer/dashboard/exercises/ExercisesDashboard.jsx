@@ -74,9 +74,9 @@ const ExercisesDashboard = () => {
   return (
     <>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-blue-800">Exercises Database</h1>
+        <h1 className="text-2xl font-bold text-green-800">Exercises Database</h1>
         <button 
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center"
           onClick={() => setShowAddForm(true)}
         >
           <Plus size={18} className="mr-1" />
@@ -98,7 +98,7 @@ const ExercisesDashboard = () => {
       
       {loading ? (
         <div className="text-center py-10">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-solid border-blue-500 border-r-transparent align-middle"></div>
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-4 border-solid border-green-500 border-r-transparent align-middle"></div>
           <p className="mt-2 text-gray-600">Loading exercises...</p>
         </div>
       ) : (

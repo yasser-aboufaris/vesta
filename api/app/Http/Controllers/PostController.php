@@ -27,13 +27,14 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'tags' => 'array',
             'tags.*' => 'integer',
         ]);
+        dd($validatedData);
         // dd($validatedData);
 
         $post = $this->postRepository->create($validatedData);
@@ -60,6 +61,7 @@ class PostController extends Controller
 
     public function bulkStore(Request $request)
     {
+        // dd($request->all());
         $data = $request->validate([
             'posts' => 'required|array',
             'posts.*.title' => 'required|string|max:255',

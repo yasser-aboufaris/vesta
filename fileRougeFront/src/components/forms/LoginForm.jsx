@@ -28,7 +28,15 @@ function LoginForm() {
       localStorage.setItem("auth_token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      navigate("/fyp");
+      // ⬇️ Redirect logic based on role_id
+      if (user.role_id === 5 || user.role_id === 6) {
+        navigate("/fyp");
+      } else if (user.role_id === 4) {
+        navigate("/dashboard");
+      } else {
+        setError("Unknown role. Contact support.");
+      }
+
     } catch (err) {
       console.error("Login failed:", err.response?.data || err.message);
       setError("Login failed. Check your credentials and try again.");

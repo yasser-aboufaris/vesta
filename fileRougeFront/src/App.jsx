@@ -8,14 +8,14 @@ import DashboardMeal from './components/trainer/dashboard/meals/dashboardMeals';
 import Dashboard from './components/trainer/dashboard/dashboard';
 import WeeklyPlanBuilder from './components/programes/PlanBuilder';
 import ProgramViewer from './components/programes/ReadPrograms';
+import Nav from './components/nav';
 
 import './App.css';
 
 function App() {
   return (
-    // <WeeklyPlanBuilder />  
-
     <Router>
+      <Nav />
       <Routes>
         <Route path="/" element={<ProgramViewer />} />
         <Route path="/fyp" element={<Fyp />} />
@@ -24,6 +24,7 @@ function App() {
         <Route path="/signup/trainer" element={<Home />} />
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/test" element={<WeeklyPlanBuilder />} />
+        <Route path="/dashboard/meals" element={<DashboardMeal />} />
       </Routes>
     </Router>
   );

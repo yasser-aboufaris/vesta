@@ -37,7 +37,7 @@ class PostRepository implements PostRepositoryInterface
 
     public function create(array $data)
     {
-        $data['user_id'] = Auth::id();
+        $data['user_id'] = 5;
     
         $tags = $data['tags'] ?? []; 
         

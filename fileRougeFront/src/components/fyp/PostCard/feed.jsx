@@ -23,9 +23,7 @@ const Feed = () => {
 
       try {
         const res = await axios.get("http://127.0.0.1:8000/api/posts", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+
         });
         console.log("Fetched posts:", res.data);
         setPosts(res.data);

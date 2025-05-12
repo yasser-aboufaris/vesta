@@ -45,18 +45,15 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('auth/logout', [AuthController::class, 'logout']);
 
-    Route::get('posts', [PostController::class, 'index']);
     Route::get('post/{id}', [PostController::class, 'show']);
     Route::post('post', [PostController::class, 'store']);
     Route::put('post/{id}', [PostController::class, 'update']);
     Route::delete('post/{id}', [PostController::class, 'destroy']);
-    Route::post('posts', [PostController::class, 'bulkStore']);
 
     Route::post('post/{id}/comment', [CommentController::class, 'store']);
     Route::post('/comments', [CommentController::class, 'store']);
 
 
-    Route::get('tags', [TagController::class, 'index']);
     Route::get('/programs/{id}', [ProgramController::class, 'show']);
     Route::put('/programs/{id}', [ProgramController::class, 'update']);
     Route::delete('/programs/{id}', [ProgramController::class, 'destroy']);
@@ -75,3 +72,8 @@ Route::get('/programs', [ProgramController::class, 'index']);
 
 Route::get('/meals', [MealController::class, 'index']);
 Route::get('/exercises', [ExerciseController::class, 'index']);
+Route::get('posts', [PostController::class, 'index']);
+    Route::post('posts', [PostController::class, 'bulkStore']);
+    Route::get('tags', [TagController::class, 'index']);
+
+

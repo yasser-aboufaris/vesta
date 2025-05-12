@@ -34,26 +34,29 @@ class ProgramController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
-            
-            'days' => 'required|array|min:7|max:7', 
-            
+        
+            'days' => 'required|array|size:7',
             'days.*.day_number' => 'required|integer|min:1|max:7',
         
-            'days.*.meals' => 'required|array|min:1',
-            'days.*.meals.*.meal_id' => 'required|exists:meals,id',
-            'days.*.meals.*.grams' => 'required|integer|min:1',
+            // Allow meals to be null or an empty array
+            'days.*.meals' => 'nullable|array',
+            // Only require meal_id & grams if that specific array element is present
+            'days.*.meals.*.meal_id'   => 'sometimes|required|exists:meals,id',
+            'days.*.meals.*.grams'     => 'sometimes|required|integer|min:1',
         
-            'days.*.exercises' => 'required|array|min:1',
-            'days.*.exercises.*.exercise_id' => 'required|exists:exercises,id',
-            'days.*.exercises.*.repetitions' => 'required|integer|min:1',
+            'days.*.exercises' => 'nullable|array',
+            'days.*.exercises.*.exercise_id'  => 'sometimes|required|exists:exercises,id',
+            'days.*.exercises.*.repetitions'  => 'sometimes|required|integer|min:1',
         ]);
+        
         
 
         $program = Program::create([
             'name' => $request->name,
-            'user_id' => Auth::id(),
+            'user_id' => 7,
         ]);
 
         foreach ($request->days as $dayData) {

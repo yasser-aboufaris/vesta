@@ -6,18 +6,24 @@ import SignUpFormClient from './components/forms/SignUpClient';
 import Sidebar from './components/fyp/sideBar';
 import DashboardMeal from './components/trainer/dashboard/meals/dashboardMeals';
 import Dashboard from './components/trainer/dashboard/dashboard';
+import WeeklyPlanBuilder from './components/programes/PlanBuilder';
+import ProgramViewer from './components/programes/ReadPrograms';
 
 import './App.css';
 
 function App() {
   return (
+    // <WeeklyPlanBuilder />  
+
     <Router>
       <Routes>
+        <Route path="/" element={<ProgramViewer />} />
         <Route path="/fyp" element={<Fyp />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/signup/client" element={<SignUpFormClient />} />
         <Route path="/signup/trainer" element={<Home />} />
         <Route path="/admin" element={<Dashboard />} />
+        <Route path="/test" element={<WeeklyPlanBuilder />} />
       </Routes>
     </Router>
   );

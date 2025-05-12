@@ -44,7 +44,7 @@ const App = () => {
       case 'exercises':
         return <ExercisesDashboard />;
       default:
-        return <Posts />;
+        return <MealsDashboard  />;
     }
   };
 
@@ -61,10 +61,12 @@ const App = () => {
       </header>
 
       <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar */}
         <Sidebar 
           activeTab={activeTab} 
           setActiveTab={(tab) => {
             setActiveTab(tab);
+            // Close sidebar on mobile after selection
             if (window.innerWidth < 768) {
               setSidebarOpen(false);
             }

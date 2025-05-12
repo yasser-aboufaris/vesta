@@ -57,8 +57,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     Route::get('tags', [TagController::class, 'index']);
-    Route::get('/programs', [ProgramController::class, 'index']);
-    Route::post('/programs', [ProgramController::class, 'store']);
     Route::get('/programs/{id}', [ProgramController::class, 'show']);
     Route::put('/programs/{id}', [ProgramController::class, 'update']);
     Route::delete('/programs/{id}', [ProgramController::class, 'destroy']);
@@ -67,7 +65,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/votes', [VoteController::class, 'destroy']);
     Route::post('/meal', [MealController::class, 'store']);
     Route::delete('/meal/{id}', [MealController::class, 'delete']);
+
+
+    Route::post('/exercises', [ExerciseController::class, 'store']);
 });
+
+Route::post('/programs', [ProgramController::class, 'store']);
+Route::get('/programs', [ProgramController::class, 'index']);
 
 Route::get('/meals', [MealController::class, 'index']);
 Route::get('/exercises', [ExerciseController::class, 'index']);

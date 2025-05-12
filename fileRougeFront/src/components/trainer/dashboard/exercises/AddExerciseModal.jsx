@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
+import axios from 'axios';
 
-const AddExerciseModal = ({ isOpen, onClose, onAddExercise }) => {
+const AddExerciseModal = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [error, setError] = useState('');
@@ -9,22 +10,43 @@ const AddExerciseModal = ({ isOpen, onClose, onAddExercise }) => {
 
   const handleSubmit = async () => {
     setError('');
-    
+
     if (!name) {
       setError('Exercise name is required');
       return;
     }
-    
+
     try {
       setLoading(true);
-      await onAddExercise({
+
+      // Replace this with your real token (for now hardcoded)
+      const token = '4|TvSUuX8wbR26C91OWz11LgFbK7NillVH1CB8KTTU143f155e';
+
+      const response = await axios.post('http://127.0.0.1:8000/api/exercises', {
         name,
         description: description || null
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json'
+        }
       });
+
+      // Clear form and close modal
       resetForm();
       onClose();
+
+      // Optional: toast or console log
+      console.log('Exercise added:', response.data);
     } catch (err) {
-      setError(err.message || 'Failed to add exercise');
+      console.error(err);
+      if (err.response?.status === 409) {
+        setError('Exercise already exists.');
+      } else if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError('Failed to add exercise.');
+      }
     } finally {
       setLoading(false);
     }
@@ -42,7 +64,7 @@ const AddExerciseModal = ({ isOpen, onClose, onAddExercise }) => {
   };
 
   if (!isOpen) return null;
-  
+
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
@@ -52,13 +74,13 @@ const AddExerciseModal = ({ isOpen, onClose, onAddExercise }) => {
             <X size={20} />
           </button>
         </div>
-        
+
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             {error}
           </div>
         )}
-        
+
         <div>
           <div className="mb-4">
             <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="name-input">
@@ -73,7 +95,7 @@ const AddExerciseModal = ({ isOpen, onClose, onAddExercise }) => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          
+
           <div className="mb-4">
             <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="description-input">
               Description <span className="font-normal text-gray-500">(optional)</span>
@@ -87,7 +109,7 @@ const AddExerciseModal = ({ isOpen, onClose, onAddExercise }) => {
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
-          
+
           <div className="flex items-center justify-end">
             <button
               className={`bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
